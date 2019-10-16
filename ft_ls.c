@@ -181,7 +181,8 @@ int	main(int argc, char **argv)
 			ft_r(tp.tr_tdroot, &fl, &tp);
 		if (fl.tdr)
 			findtree(tp.tr_tdroot, &fl, ac);
-		freemem(tp.tr_tdroot, &fl);
+		if (fl.tdr)
+		    freemem(tp.tr_tdroot, &fl);
 		fl.tdr = 0;
 		fl.tds = 0;
 		fl.ter = 0;
