@@ -33,8 +33,10 @@ void	findtree(t_ree_trdirs *tua, t_flags *fl, int argc)
 	if (tua != NULL)
 	{
 		findtree(tua->left, fl, argc);
-		if ((argc > 2 || fl->rec) && fl->fir)
+		if (fl->rec && fl->fir)
 			printf("%s:\n", tua->tdname);
+		else if (argc > 2)
+            printf("%s:\n", tua->tdname);
 		fl->fir = 1;
 		treeprint(&(tua->tr_dir), fl);
 		write(1, "\n", 1);

@@ -162,7 +162,7 @@ int	main(int argc, char **argv)
 			return (0);
 		i++;
 	}
-	ac = i;
+	ac = argc - (i - 1);
 	if (argc - i == 0)
 	{
 		ft_ls(".", &fl, &tp);
