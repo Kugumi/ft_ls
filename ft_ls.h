@@ -82,30 +82,40 @@ typedef	struct	s_u
 	struct s_u	*left;
 }				t_ree_trdirs;
 
+typedef struct	s_dirs
+{
+	char			*name;
+	struct s_dirs	*next;
+}				t_dirs;
+
 typedef	struct	s_uv
 {
-	t_ree_trdirs *fofreetu;
+    t_ree_errors    *te;
+    t_dirs *dirs;
+    t_ree_trdirs *fofreetu;
 	t_ree_trdirs *tr_tdroot;
 	t_ree_trdirs *tr_td;
 }				t_trpointers;
 
 void			treeprint(t_ree_dir *td, t_flags *fl);
 t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p);
-t_ree_dir		filltdr(t_ree_dir *td, char *name);
-t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_flags *fl);
+//t_ree_dir		filltdr(t_ree_dir *td, char *name);
+//t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_flags *fl);
 t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_flags *fl);
 void			ft_treedirs(char *name, t_flags *fl, t_trpointers *tp);
 void			ft_fillfl(t_flags *fl);
+void			ft_filldirs(t_dirs	*dirs);
 void			findtree(t_ree_trdirs *tua, t_flags *fl, int argc);
 t_ree_dir		ft_dir(char *name, t_flags *fl, struct	s_d	*tr_trees);
 void			ft_r(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
-void			ft_err(char *name, char *s, t_flags *fl);
+void			ft_err(t_ree_errors *te, char *name, char *s, t_flags *fl);
+void            errprint(t_ree_errors *te);
 t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name, t_flags *fl);
 char			*ft_name(char *name);
 t_ree_dir		*fillemp(t_ree_dir *td);
-void			ft_trfree(t_ree_trdirs *tua);
+//void			ft_trfree(t_ree_trdirs *tua);
 void			freemem(t_ree_trdirs *tua, t_flags *fl);
 /*  typedef struct
 {

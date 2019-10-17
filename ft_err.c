@@ -11,11 +11,22 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <stdio.h>
 
-void	ft_err(char *name, char *s, t_flags *fl)
+void	errprint(t_ree_errors *te)
 {
-	t_ree_errors		*te;
-	static t_ree_errors	*te_root;
+    if (te != NULL)
+    {
+        errprint (te->left);
+        printf("ls: %s: %s\n", te->name, te->s);
+        errprint(te->right);
+    }
+}
+
+void	ft_err(t_ree_errors *te, char *name, char *s, t_flags *fl)
+{
+	//t_ree_errors		*te;
+	t_ree_errors	*te_root;
 
 	if (!fl->ter)
 	{

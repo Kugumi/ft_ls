@@ -27,3 +27,9 @@ void	ft_fillfl(t_flags *fl)
 	fl->fir = 0;
 	fl->reci = 0;
 }
+
+void	ft_filldirs(t_dirs	*dirs)
+{
+	dirs->name = NULL;
+	dirs->next = NULL;
+}

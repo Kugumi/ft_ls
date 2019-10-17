@@ -43,7 +43,6 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 {
 	DIR 			*di;
 	struct dirent 	*dp;
-//	t_ree_dir				tmp_td = {0};
 	t_ree_dir				*td_root;
 	t_ree_dir				*td;
 
@@ -55,14 +54,6 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 	}
 	if ((dp = readdir(di)) != NULL)
 	{
-	/*	if (!(fl->a) && !(fl->dot))
-		{
-			fl->dot = 1;
-			fl->tds = 1;
-			tr_trees = filltd(tr_trees, dp->d_name, name);
-			td = tr_trees;
-			td_root = td;
-		}*/
 		if (!fl->tds && fl->a)
 		{
 			fl->tds = 1;
@@ -126,8 +117,27 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 		else
 			fl->tds = 0;
 	}
-	//treeprint(tr_trees, fl);
 	return (*tr_trees);
+}
+
+void	ft_ls0(char *name, t_flags *fl, t_trpointers *tp)
+{
+    struct stat stbuf;
+
+    if (lstat(name, &stbuf) == -1)
+    {
+        ft_err(tp->te, name, strerror(errno), fl);
+        return ;
+    }
+    if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
+    {
+    	tp->dirs->name = ft_strdup(name);
+    	tp->dirs = tp->dirs->next;
+        return;
+    }
+    else
+    	;
+        //ft_files();
 }
 
 void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
@@ -135,15 +145,11 @@ void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
 	struct stat stbuf;
 
 	if (lstat(name, &stbuf) == -1)
-	{
-		ft_err(name, strerror(errno), fl);
-//		printf("ft_ls: %s: %s\n", name, strerror(errno));
 		return ;
-	}
 	if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
 		ft_treedirs(name, fl, tp);
 	else
-	    printf("%s\n", name);
+	    return ;
 }
 
 int	main(int argc, char **argv)
@@ -171,9 +177,17 @@ int	main(int argc, char **argv)
 		if (fl.tdr)
 			findtree(tp.tr_tdroot, &fl, ac);
 		//ft_trfree(&(tp.tr_tda));
-		freemem(tp.tr_tdroot, &fl);
+		if (fl.tdr)
+		    freemem(tp.tr_tdroot, &fl);
 		return (0);
 	}
+	ft_filldirs(tp.dirs);
+    while (argv[i])
+    {
+        ft_ls0(argv[i], &fl, &tp);
+        i++;
+    }
+    errprint(tp.te);
 	while (argv[i])
 	{
 		ft_ls(argv[i], &fl, &tp);
@@ -193,9 +207,5 @@ int	main(int argc, char **argv)
 		//ft_trfree(&(tp.tr_tda));
 		i++;
 	}
-	/*if (fl.rec && fl.tdr)
-		ft_r(&(tp.tr_tda), &fl, &tp);
-	if (fl.tdr)
-		findtree(&(tp.tr_tda), &fl, ac);*/
 	return (0);
 }
