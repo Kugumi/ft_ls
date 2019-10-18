@@ -12,6 +12,21 @@
 
 #include "ft_ls.h"
 #include <stdio.h>
+
+void 	freememfiles(t_ree_files *tf, t_flags *fl)
+{
+	if (tf == NULL)
+		return ;
+	freememfiles(tf->left, fl);
+	freememfiles(tf->right, fl);
+	if (tf->fname)
+	{
+		free(tf->fname);
+		tf->fname = NULL;
+	}
+	free(tf);
+}
+
 void	filesprint(t_ree_files *tf)
 {
 	if (tf != NULL)

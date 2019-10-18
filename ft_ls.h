@@ -125,6 +125,8 @@ t_ree_files		*filltf(t_ree_files *tf, char *name);
 //void			ft_trfree(t_ree_trdirs *tua);
 void			freemem(t_ree_trdirs *tua, t_flags *fl);
 void			freedirs(t_dirs *dirs);
+void			freememerr(t_ree_errors	*te, t_flags *fl);
+void			freememfiles(t_ree_files *tf, t_flags *fl);
 /*  typedef struct
 {
 	long ino; //номер inode

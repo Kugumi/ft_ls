@@ -215,5 +215,7 @@ int	main(int argc, char **argv)
 		tp.first = tp.first->next;
 	}
 	freedirs(tp.firstforfree);
+	freememerr(tp.te, &fl);
+	freememfiles(tp.tf, &fl);
 	return (0);
 }
