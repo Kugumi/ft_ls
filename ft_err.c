@@ -23,10 +23,10 @@ void	errprint(t_ree_errors *te)
     }
 }
 
-void	ft_err(t_ree_errors *te, char *name, char *s, t_flags *fl)
+void	ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl)
 {
 	//t_ree_errors		*te;
-	t_ree_errors	*te_root;
+	static t_ree_errors	*te_root;
 
 	if (!fl->ter)
 	{
@@ -34,28 +34,28 @@ void	ft_err(t_ree_errors *te, char *name, char *s, t_flags *fl)
 		te_root = fillte(te_root, name, s);
 		return ;
 	}
-	te = te_root;
+	tp->te = te_root;
 	while (1)
 	{
-		if (strcmp(te->name, name) >= 0)
+		if (strcmp(tp->te->name, name) >= 0)
 		{
-			if (te->left == NULL)
+			if (tp->te->left == NULL)
 			{
-				te->left = fillte(te, name, s);
+				tp->te->left = fillte(tp->te, name, s);
 					break ;
 			}
 			else
-				te = te->left;
+				tp->te = tp->te->left;
 		}
-		if (strcmp(te->name, name) < 0)
+		if (strcmp(tp->te->name, name) < 0)
 		{
-			if (te->right == NULL)
+			if (tp->te->right == NULL)
 			{
-				te->right = fillte(te, name, s);
+				tp->te->right = fillte(tp->te, name, s);
 					break ;
 			}
 			else
-				te = te->right;
+				tp->te = tp->te->right;
 		}
 	}
 }

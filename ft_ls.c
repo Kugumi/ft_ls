@@ -126,14 +126,26 @@ void	ft_ls0(char *name, t_flags *fl, t_trpointers *tp)
 
     if (lstat(name, &stbuf) == -1)
     {
-        ft_err(tp->te, name, strerror(errno), fl);
+        ft_err(tp, name, strerror(errno), fl);
         return ;
     }
     if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
     {
-    	tp->dirs->name = ft_strdup(name);
-    	tp->dirs = tp->dirs->next;
-        return;
+    	if (!tp->dirs)
+    	{
+            tp->dirs = (t_dirs *) malloc(sizeof(t_dirs));
+			tp->dirs->name = ft_strdup(name);
+			tp->first = tp->dirs;
+			tp->dirs->next = NULL;
+        }
+    	else
+        {
+			tp->dirs->next = (t_dirs *) malloc(sizeof(t_dirs));
+			tp->dirs = tp->dirs->next;
+    	    tp->dirs->name = ft_strdup(name);
+    	    tp->dirs->next = NULL;
+        }
+        return ;
     }
     else
     	;
@@ -142,14 +154,14 @@ void	ft_ls0(char *name, t_flags *fl, t_trpointers *tp)
 
 void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
 {
-	struct stat stbuf;
+	/*struct stat stbuf;
 
 	if (lstat(name, &stbuf) == -1)
 		return ;
 	if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
 		ft_treedirs(name, fl, tp);
 	else
-	    return ;
+	    return ;*/
 }
 
 int	main(int argc, char **argv)
@@ -181,13 +193,14 @@ int	main(int argc, char **argv)
 		    freemem(tp.tr_tdroot, &fl);
 		return (0);
 	}
-	ft_filldirs(tp.dirs);
+	tp.dirs = NULL;
     while (argv[i])
     {
         ft_ls0(argv[i], &fl, &tp);
         i++;
     }
-    errprint(tp.te);
+    ft_lstsort(tp.first);
+//    errprint(tp.te);
 	while (argv[i])
 	{
 		ft_ls(argv[i], &fl, &tp);

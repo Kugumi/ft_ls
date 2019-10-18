@@ -92,12 +92,14 @@ typedef	struct	s_uv
 {
     t_ree_errors    *te;
     t_dirs *dirs;
+    t_dirs *first;
     t_ree_trdirs *fofreetu;
 	t_ree_trdirs *tr_tdroot;
 	t_ree_trdirs *tr_td;
 }				t_trpointers;
 
 void			treeprint(t_ree_dir *td, t_flags *fl);
+t_dirs			*ft_lstsort(t_dirs *dirs);
 t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p);
 //t_ree_dir		filltdr(t_ree_dir *td, char *name);
 //t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_flags *fl);
@@ -110,7 +112,7 @@ t_ree_dir		ft_dir(char *name, t_flags *fl, struct	s_d	*tr_trees);
 void			ft_r(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
-void			ft_err(t_ree_errors *te, char *name, char *s, t_flags *fl);
+void            ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl);
 void            errprint(t_ree_errors *te);
 t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name, t_flags *fl);
 char			*ft_name(char *name);

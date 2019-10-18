@@ -28,8 +28,8 @@ void	ft_fillfl(t_flags *fl)
 	fl->reci = 0;
 }
 
-void	ft_filldirs(t_dirs	*dirs)
+/*void	ft_filldirs(t_dirs	*dirs)
 {
 	dirs->name = NULL;
 	dirs->next = NULL;
-}
+}*/
