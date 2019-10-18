@@ -41,7 +41,7 @@ typedef struct	s_flags
 	int tds;
 	int ter;
 	int terd;
-	int dot;
+	int tfr;
 	int fir;
 	int reci;
 }				t_flags;
@@ -64,8 +64,8 @@ typedef	struct	s_e
 typedef	struct	s_d
 {
 	int fft;
-	struct s_d	*fofreetd;
-	struct s_d	*fofreetdr;
+	struct s_d		*fofreetd;
+	struct s_d		*fofreetdr;
 	char			*path;
 	char			*dname;
 	char			*s;         //for strerror
@@ -91,11 +91,13 @@ typedef struct	s_dirs
 typedef	struct	s_uv
 {
     t_ree_errors    *te;
-    t_dirs *dirs;
-    t_dirs *first;
-    t_ree_trdirs *fofreetu;
-	t_ree_trdirs *tr_tdroot;
-	t_ree_trdirs *tr_td;
+    t_ree_files		*tf;
+    t_dirs			*dirs;
+    t_dirs			*first;
+    t_dirs			*firstforfree;
+    t_ree_trdirs	*fofreetu;
+	t_ree_trdirs	*tr_tdroot;
+	t_ree_trdirs	*tr_td;
 }				t_trpointers;
 
 void			treeprint(t_ree_dir *td, t_flags *fl);
@@ -113,12 +115,16 @@ void			ft_r(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
 void            ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl);
+void			ft_files(t_trpointers *tp, char *name, t_flags *fl);
 void            errprint(t_ree_errors *te);
+void			filesprint(t_ree_files *tf);
 t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name, t_flags *fl);
 char			*ft_name(char *name);
 t_ree_dir		*fillemp(t_ree_dir *td);
+t_ree_files		*filltf(t_ree_files *tf, char *name);
 //void			ft_trfree(t_ree_trdirs *tua);
 void			freemem(t_ree_trdirs *tua, t_flags *fl);
+void			freedirs(t_dirs *dirs);
 /*  typedef struct
 {
 	long ino; //номер inode

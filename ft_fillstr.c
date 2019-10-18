@@ -76,3 +76,12 @@ t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s)
 	te->left = NULL;
 	return (te);
 }
+
+t_ree_files		*filltf(t_ree_files *tf, char *name)
+{
+	tf = (t_ree_files *)malloc(sizeof(t_ree_files));
+	tf->fname = ft_strdup(name);
+	tf->right = NULL;
+	tf->left = NULL;
+	return (tf);
+}

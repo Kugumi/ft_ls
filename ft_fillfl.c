@@ -22,8 +22,8 @@ void	ft_fillfl(t_flags *fl)
 	fl->tdr = 0;
 	fl->tds = 0;
 	fl->ter = 0;
+	fl->tfr = 0;
 	fl->terd = 0;
-	fl->dot = 0;
 	fl->fir = 0;
 	fl->reci = 0;
 }

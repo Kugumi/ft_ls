@@ -120,12 +120,13 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 	return (*tr_trees);
 }
 
-void	ft_ls0(char *name, t_flags *fl, t_trpointers *tp)
+void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
 {
     struct stat stbuf;
 
     if (lstat(name, &stbuf) == -1)
     {
+    	fl->terd = 1;
         ft_err(tp, name, strerror(errno), fl);
         return ;
     }
@@ -136,6 +137,7 @@ void	ft_ls0(char *name, t_flags *fl, t_trpointers *tp)
             tp->dirs = (t_dirs *) malloc(sizeof(t_dirs));
 			tp->dirs->name = ft_strdup(name);
 			tp->first = tp->dirs;
+			tp->firstforfree = tp->dirs;
 			tp->dirs->next = NULL;
         }
     	else
@@ -148,20 +150,7 @@ void	ft_ls0(char *name, t_flags *fl, t_trpointers *tp)
         return ;
     }
     else
-    	;
-        //ft_files();
-}
-
-void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
-{
-	/*struct stat stbuf;
-
-	if (lstat(name, &stbuf) == -1)
-		return ;
-	if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
-		ft_treedirs(name, fl, tp);
-	else
-	    return ;*/
+        ft_files(tp, name, fl);
 }
 
 int	main(int argc, char **argv)
@@ -183,7 +172,7 @@ int	main(int argc, char **argv)
 	ac = argc - (i - 1);
 	if (argc - i == 0)
 	{
-		ft_ls(".", &fl, &tp);
+		ft_treedirs(".", &fl, &tp);
 		if (fl.rec && fl.tdr)
 			ft_r(tp.tr_tdroot, &fl, &tp);
 		if (fl.tdr)
@@ -196,20 +185,25 @@ int	main(int argc, char **argv)
 	tp.dirs = NULL;
     while (argv[i])
     {
-        ft_ls0(argv[i], &fl, &tp);
+        ft_ls(argv[i], &fl, &tp);
         i++;
     }
     ft_lstsort(tp.first);
-//    errprint(tp.te);
-	while (argv[i])
+    if (fl.terd)
+    	errprint(tp.te);
+    if (fl.tfr)
+		filesprint(tp.tf);
+	while (tp.first)
 	{
-		ft_ls(argv[i], &fl, &tp);
+		ft_treedirs(tp.first->name, &fl, &tp);
+		//ft_ls(tp.first->name, &fl, &tp);
 		if (fl.rec && fl.tdr)
 			ft_r(tp.tr_tdroot, &fl, &tp);
 		if (fl.tdr)
 			findtree(tp.tr_tdroot, &fl, ac);
 		if (fl.tdr)
-		    freemem(tp.tr_tdroot, &fl);
+			freemem(tp.tr_tdroot, &fl);
+
 		fl.tdr = 0;
 		fl.tds = 0;
 		fl.ter = 0;
@@ -218,7 +212,8 @@ int	main(int argc, char **argv)
 		//free(tp.tr_tdroot->tr_dir.fofreetdr);
 		//free(tp.tr_td->tr_dir.fofreetd);
 		//ft_trfree(&(tp.tr_tda));
-		i++;
+		tp.first = tp.first->next;
 	}
+	freedirs(tp.firstforfree);
 	return (0);
 }

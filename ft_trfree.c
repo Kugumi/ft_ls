@@ -12,6 +12,19 @@
 
 #include "ft_ls.h"
 
+void	freedirs(t_dirs *dirs)
+{
+	t_dirs *buff;
+
+	while (dirs)
+	{
+		free(dirs->name);
+		buff = dirs->next;
+		free(dirs);
+		dirs = buff;
+	}
+}
+
 /*void	ft_dirfree(t_ree_dir *td)
 {
 	t_ree_dir *l;
