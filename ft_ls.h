@@ -90,12 +90,13 @@ typedef struct	s_dirs
 
 typedef	struct	s_uv
 {
-    t_ree_errors    *te;
+    t_ree_errors	*teroot;
+	t_ree_errors    *te;
+	t_ree_files		*tfroot;
     t_ree_files		*tf;
     t_dirs			*dirs;
     t_dirs			*first;
     t_dirs			*firstforfree;
-    t_ree_trdirs	*fofreetu;
 	t_ree_trdirs	*tr_tdroot;
 	t_ree_trdirs	*tr_td;
 }				t_trpointers;

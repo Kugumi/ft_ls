@@ -137,8 +137,8 @@ void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
             tp->dirs = (t_dirs *) malloc(sizeof(t_dirs));
 			tp->dirs->name = ft_strdup(name);
 			tp->first = tp->dirs;
-			tp->firstforfree = tp->dirs;
 			tp->dirs->next = NULL;
+			tp->firstforfree = tp->dirs;
         }
     	else
         {
@@ -188,34 +188,42 @@ int	main(int argc, char **argv)
         ft_ls(argv[i], &fl, &tp);
         i++;
     }
-    ft_lstsort(tp.first);
-    if (fl.terd)
+    if (fl.tdr)
+    	ft_lstsort(tp.first);
+    if (fl.ter)
     	errprint(tp.te);
     if (fl.tfr)
 		filesprint(tp.tf);
-	while (tp.first)
+    if (tp.dirs)
 	{
-		ft_treedirs(tp.first->name, &fl, &tp);
-		//ft_ls(tp.first->name, &fl, &tp);
-		if (fl.rec && fl.tdr)
-			ft_r(tp.tr_tdroot, &fl, &tp);
-		if (fl.tdr)
-			findtree(tp.tr_tdroot, &fl, ac);
-		if (fl.tdr)
-			freemem(tp.tr_tdroot, &fl);
-
-		fl.tdr = 0;
-		fl.tds = 0;
-		fl.ter = 0;
-		fl.fir = 0;
-		fl.reci = 0;
-		//free(tp.tr_tdroot->tr_dir.fofreetdr);
-		//free(tp.tr_td->tr_dir.fofreetd);
-		//ft_trfree(&(tp.tr_tda));
-		tp.first = tp.first->next;
+		while (tp.first)
+		{
+			ft_treedirs(tp.first->name, &fl, &tp);
+			//ft_ls(tp.first->name, &fl, &tp);
+			if (fl.rec && fl.tdr)
+				ft_r(tp.tr_tdroot, &fl, &tp);
+			if (fl.tdr)
+				findtree(tp.tr_tdroot, &fl, ac);
+			if (fl.tdr)
+				freemem(tp.tr_tdroot, &fl);
+			//free(tp.tr_tdroot->tr_dir.fofreetdr);
+			//free(tp.tr_td->tr_dir.fofreetd);
+			//ft_trfree(&(tp.tr_tda));
+			tp.first = tp.first->next;
+			if (!tp.first)
+				break;
+			fl.tdr = 0;
+			fl.tds = 0;
+			fl.ter = 0;
+			fl.fir = 0;
+			fl.reci = 0;
+		}
 	}
-	freedirs(tp.firstforfree);
-	freememerr(tp.te, &fl);
-	freememfiles(tp.tf, &fl);
+	if (fl.tdr)
+		freedirs(tp.firstforfree);
+	if (fl.ter)
+		freememerr(tp.te, &fl);
+	if (fl.tfr)
+		freememfiles(tp.tf, &fl);
 	return (0);
 }

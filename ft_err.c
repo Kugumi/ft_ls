@@ -44,15 +44,16 @@ void	errprint(t_ree_errors *te)
 
 void	ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl)
 {
-	static t_ree_errors	*te_root;
+	//static t_ree_errors	*te_root;
 
 	if (!fl->ter)
 	{
 		fl->ter = 1;
-		te_root = fillte(te_root, name, s);
+		tp->teroot = fillte(tp->teroot, name, s);
+		tp->te = tp->teroot;
 		return ;
 	}
-	tp->te = te_root;
+	tp->te = tp->teroot;
 	while (1)
 	{
 		if (strcmp(tp->te->name, name) >= 0)

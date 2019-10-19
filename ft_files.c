@@ -39,15 +39,16 @@ void	filesprint(t_ree_files *tf)
 
 void	ft_files(t_trpointers *tp, char *name, t_flags *fl)
 {
-	static t_ree_files	*tf_root;
+	//t_ree_files	*tf_root;
 
 	if (!fl->tfr)
 	{
 		fl->tfr = 1;
-		tf_root = filltf(tf_root, name);
+		tp->tfroot = filltf(tp->tfroot, name);
+		tp->tf = tp->tfroot;
 		return ;
 	}
-	tp->tf = tf_root;
+	tp->tf = tp->tfroot;
 	while (1)
 	{
 		if (ft_strcmp(tp->tf->fname, name) >= 0)
