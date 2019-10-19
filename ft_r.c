@@ -38,7 +38,10 @@ void	ft_rr(t_ree_dir *td, t_flags *fl, t_trpointers *tp)
 				if ((stbuf.st_mode & S_IFMT) == S_IFDIR && (strcmp(td->dname, ".") != 0 && strcmp(td->dname, "..") != 0))
 				{
 					fl->reci = 1;
-					ft_treedirs(td->path, fl, tp);
+					if (!fl->r)
+						ft_treedirs(td->path, fl, tp);
+					else
+						ft_treedirsr(td->path, fl, tp);
 				}
 			}
 		}

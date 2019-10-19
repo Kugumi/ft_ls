@@ -103,15 +103,18 @@ typedef	struct	s_uv
 
 void			treeprint(t_ree_dir *td, t_flags *fl);
 t_dirs			*ft_lstsort(t_dirs *dirs);
+t_dirs			*ft_lstsortr(t_dirs *dirs);
 t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p);
 //t_ree_dir		filltdr(t_ree_dir *td, char *name);
 //t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_flags *fl);
 t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_flags *fl);
 void			ft_treedirs(char *name, t_flags *fl, t_trpointers *tp);
+void			ft_treedirsr(char *name, t_flags *fl, t_trpointers *tp);
 void			ft_fillfl(t_flags *fl);
 void			ft_filldirs(t_dirs	*dirs);
 void			findtree(t_ree_trdirs *tua, t_flags *fl, int argc);
 t_ree_dir		ft_dir(char *name, t_flags *fl, struct	s_d	*tr_trees);
+t_ree_dir		ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees);
 void			ft_r(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);

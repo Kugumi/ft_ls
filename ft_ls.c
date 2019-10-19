@@ -188,8 +188,13 @@ int	main(int argc, char **argv)
         ft_ls(argv[i], &fl, &tp);
         i++;
     }
-    if (fl.tdr)
-    	ft_lstsort(tp.first);
+    if (tp.dirs)
+	{
+    	if (!fl.r)
+    		ft_lstsort(tp.first);
+    	else
+			ft_lstsortr(tp.first);
+	}
     if (fl.ter)
     	errprint(tp.te);
     if (fl.tfr)
@@ -214,7 +219,6 @@ int	main(int argc, char **argv)
 				break;
 			fl.tdr = 0;
 			fl.tds = 0;
-			fl.ter = 0;
 			fl.fir = 0;
 			fl.reci = 0;
 		}

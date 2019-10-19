@@ -58,10 +58,10 @@ t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_flags *fl)
 {
 	tu = (t_ree_trdirs *)malloc(sizeof(t_ree_trdirs));
 	tu->tdname = ft_strdup(name);
-	tu->tr_dir= ft_dir(name, fl, &(tu->tr_dir));
-//	tu->fftu = 1;
-//	if (!fl->reci)
-//		tu->fftu = 0;
+	if (!fl->r)
+		tu->tr_dir= ft_dir(name, fl, &(tu->tr_dir));
+	else
+		tu->tr_dir= ft_dirr(name, fl, &(tu->tr_dir));
 	tu->right = NULL;
 	tu->left = NULL;
 	return (tu);
