@@ -3,62 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdeloise <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/19 04:18:20 by jijerde           #+#    #+#             */
-/*   Updated: 2018/12/28 01:48:14 by jijerde          ###   ########.fr       */
+/*   Created: 2019/04/20 20:05:37 by kdeloise          #+#    #+#             */
+/*   Updated: 2019/04/20 20:05:38 by kdeloise         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_start(char const *s)
+char	*ft_strtrim(char const *s)
 {
-	int i;
+	char			*n;
+	unsigned int	i;
+	unsigned int	len;
+	unsigned int	sn;
 
-	i = 0;
-	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
-		i++;
-	return (i);
-}
-
-static int	ft_finish(const char *s, int i)
-{
-	int f;
-
-	f = 0;
-	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
+	if (s)
 	{
-		i--;
-		f++;
+		i = 0;
+		sn = 0;
+		len = ft_strlen(s) - 1;
+		if (s[i] == '\0')
+			return ((char *)s + i);
+		while (s[sn] == ' ' || s[sn] == '\t' || s[sn] == '\n')
+			sn++;
+		while (len > 0 && (s[len] == ' ' || s[len] == '\t' || s[len] == '\n'))
+			len--;
+		n = (char *)malloc(sizeof(char) * (len - (sn - 1) + 1));
+		if (n == 0)
+			return (0);
+		while (len >= sn)
+			n[i++] = s[sn++];
+		n[i] = '\0';
+		return (n);
 	}
-	return (f);
-}
-
-char		*ft_strtrim(char const *s)
-{
-	int		len;
-	int		st;
-	int		f;
-	char	*new;
-	char	*finish;
-
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	st = ft_start(s);
-	f = ft_finish(s, len - 1);
-	len = len - st - f;
-	if (len < 0)
-		new = (char *)malloc(sizeof(char));
-	else if (!(new = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	finish = new;
-	while (len-- > 0)
-	{
-		*new = s[st++];
-		new++;
-	}
-	*new = '\0';
-	return (finish);
+	return (0);
 }

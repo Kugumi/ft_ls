@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdeloise <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/14 18:39:23 by jijerde           #+#    #+#             */
-/*   Updated: 2019/01/14 18:39:54 by jijerde          ###   ########.fr       */
+/*   Created: 2019/04/13 00:28:55 by kdeloise          #+#    #+#             */
+/*   Updated: 2019/04/17 14:18:50 by kdeloise         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*p;
-	unsigned char	*d;
-	size_t			i;
+	size_t i;
 
 	i = 0;
-	p = (unsigned char *)s1;
-	d = (unsigned char *)s2;
 	while (i < n)
 	{
-		if (p[i] != d[i])
-			return (p[i] - d[i]);
+		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 		i++;
 	}
 	return (0);

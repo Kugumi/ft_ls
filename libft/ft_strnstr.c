@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   strnstr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdeloise <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/14 19:01:01 by jijerde           #+#    #+#             */
-/*   Updated: 2019/01/14 19:01:16 by jijerde          ###   ########.fr       */
+/*   Created: 2019/04/17 02:16:09 by kdeloise          #+#    #+#             */
+/*   Updated: 2019/04/17 14:40:35 by kdeloise         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,22 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int	i;
-	int	j;
-	int	h;
-	int	n;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	j = 0;
-	h = 0;
-	n = 0;
-	if (needle[i] == '\0')
-		return ((char *)haystack);
-	h = ft_strlen((char *)haystack);
-	n = ft_strlen((char *)needle);
-	while ((h - i - n >= 0) && (i < (int)len))
+	while (i <= len && haystack[i] != '\0')
 	{
 		j = 0;
-		while ((haystack[i + j] == needle[j]) && (i + j < (int)len))
-		{
-			if (needle[++j] == '\0')
-				return ((char *)haystack + i);
-		}
+		while (haystack[i + j] == needle[j] && needle[j] != '\0')
+			j++;
+		if (len < len - (i + j))
+			return (0);
+		if (needle[j] == '\0')
+			return ((char *)haystack + i);
 		i++;
 	}
-	return (NULL);
+	if (haystack[0] == '\0' && needle[0] == '\0')
+		return ((char *)haystack);
+	return (0);
 }
