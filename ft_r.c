@@ -24,7 +24,7 @@ void	ft_rr(t_ree_dir *td, t_signs *fl)
 		ft_rr(td->left, fl);
 		if (td->dname != NULL)
 		{
-			if ((strcmp(td->dname, ".") != 0 && strcmp(td->dname, "..") != 0) && !(td->s))
+			if ((ft_strcmp(td->dname, ".") != 0 && ft_strcmp(td->dname, "..") != 0) && !(td->s))
 			{
 				tmp = ft_strjoinp(td->path, td->dname);
 				free(td->path);
@@ -36,7 +36,7 @@ void	ft_rr(t_ree_dir *td, t_signs *fl)
 				//	return;
 				//}
 				{
-					if ((stbuf.st_mode & S_IFMT) == S_IFDIR && (strcmp(td->dname, ".") != 0 && strcmp(td->dname, "..") != 0))
+					if ((stbuf.st_mode & S_IFMT) == S_IFDIR && (ft_strcmp(td->dname, ".") != 0 && ft_strcmp(td->dname, "..") != 0))
 					{
 						fl->reci = 1;
 						//if (!fl->r)

@@ -47,7 +47,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 		}
 		while ((dp = readdir(di)) != NULL)
 		{
-			if (dp->d_name[0] == '.' && !(fl->a))
+			if ((dp->d_name[0] == '.' && !(fl->a) && !(fl->abig)) || (dp->d_name[0] == '.' && dp->d_name[1] == '.' && fl->abig))
 				;
 			else
 			{
@@ -65,7 +65,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 					td = td_root;
 					while (1)
 					{
-						if (strcmp(td->dname, dp->d_name) < 0)
+						if (ft_strcmp(td->dname, dp->d_name) < 0)
 						{
 							if (td->left == NULL)
 							{
@@ -78,7 +78,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 							else
 								td = td->left;
 						}
-						if (strcmp(td->dname, dp->d_name) >= 0)
+						if (ft_strcmp(td->dname, dp->d_name) >= 0)
 						{
 							if (td->right == NULL)
 							{
@@ -106,9 +106,9 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 			fl->tds = 0;
 	}
 	if (fl->rec && fl->fir)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	else if (fl->ac > 2)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	fl->fir = 1;
 	treeprint(tr_trees, fl);
 	write(1, "\n", 1);

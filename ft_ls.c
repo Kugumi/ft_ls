@@ -30,6 +30,8 @@ int	ft_signs(t_signs *fl, char *s)
 			fl->rec = 1;
 		else if (s[i] == 'a')
 			fl->a = 1;
+		else if (s[i] == 'A')
+			fl->abig = 1;
 		else
 		{
 			printf("ls: illegal option -- %c\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", s[i]);
@@ -74,7 +76,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 		}
 		while ((dp = readdir(di)) != NULL)
 		{
-			if (dp->d_name[0] == '.' && !(fl->a))
+			if ((dp->d_name[0] == '.' && !(fl->a) && !(fl->abig)) || (dp->d_name[0] == '.' && dp->d_name[1] == '.' && fl->abig))
 				;
 			else
 			{
@@ -92,7 +94,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 					td = td_root;
 					while (1)
 					{
-						if (strcmp(td->dname, dp->d_name) >= 0)
+						if (ft_strcmp(td->dname, dp->d_name) >= 0)
 						{
 							if (td->left == NULL)
 							{
@@ -105,7 +107,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 							else
 								td = td->left;
 						}
-						if (strcmp(td->dname, dp->d_name) < 0)
+						if (ft_strcmp(td->dname, dp->d_name) < 0)
 						{
 							if (td->right == NULL)
 							{
@@ -205,6 +207,8 @@ int	main(int argc, char **argv)
 			ft_r(t, &fl, &tp);
 			freememdir(t, &fl);
 		}
+		else
+			freememdir(t, &fl);
 		/*if (fl.tdr)
 			findtree(tp.tr_tdroot, &fl, fl.ac);
 		//ft_trfree(&(tp.tr_tda));
@@ -243,6 +247,8 @@ int	main(int argc, char **argv)
 				/*else
 					ft_r1(tp.tr_tdroot, &fl, &tp);*/
 			}
+			else
+				freememdir(t, &fl);
 			/*if (fl.tdr)
 			{
 				if (!fl.r)

@@ -56,7 +56,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 	tp->te = tp->teroot;
 	while (1)
 	{
-		if (strcmp(tp->te->name, name) >= 0)
+		if (ft_strcmp(tp->te->name, name) >= 0)
 		{
 			if (tp->te->left == NULL)
 			{
@@ -66,7 +66,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 			else
 				tp->te = tp->te->left;
 		}
-		if (strcmp(tp->te->name, name) < 0)
+		if (ft_strcmp(tp->te->name, name) < 0)
 		{
 			if (tp->te->right == NULL)
 			{

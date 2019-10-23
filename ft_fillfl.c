@@ -27,6 +27,7 @@ void	ft_fillfl(t_signs *fl)
 	fl->fir = 0;
 	fl->reci = 0;
 	fl->ac = 0;
+	fl->abig = 0;
 }
 
 /*void	ft_filldirs(t_dirs	*dirs)

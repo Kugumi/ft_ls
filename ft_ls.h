@@ -37,6 +37,7 @@ typedef struct	s_signs
 	int l;
 	int rec;
 	int a;
+	int abig;
 	int	tdr;
 	int tds;
 	int ter;
