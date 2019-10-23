@@ -81,6 +81,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl)
 
 t_ree_dir *ft_errd(t_ree_dir *td, char *s, char *name, t_flags *fl)
 {
+	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
 	td->path = ft_strdup(name);
 	td->dname = ft_name(name);
 	td->s = ft_strdup(s);

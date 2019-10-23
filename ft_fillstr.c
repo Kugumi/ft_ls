@@ -23,6 +23,7 @@
 
 t_ree_dir	*fillemp(t_ree_dir *td)
 {
+	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
 	td->path = NULL;
 	td->dname = NULL;
 	td->s = NULL;
@@ -54,18 +55,19 @@ t_ree_dir	*filltd(t_ree_dir *td, char *name, char *p)
 	return (*tu);
 }*/
 
-t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_flags *fl)
+/*t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_flags *fl)
 {
 	tu = (t_ree_trdirs *)malloc(sizeof(t_ree_trdirs));
 	tu->tdname = ft_strdup(name);
-	if (!fl->r)
-		tu->tr_dir= ft_dir(name, fl, &(tu->tr_dir));
-	else
-		tu->tr_dir= ft_dirr(name, fl, &(tu->tr_dir));
+	//if (!fl->r)
+	tu->tr_dir= ft_dir(name, fl, &(tu->tr_dir));
+
+	*//*else
+		tu->tr_dir= ft_dirr(name, fl, &(tu->tr_dir));*//*
 	tu->right = NULL;
 	tu->left = NULL;
 	return (tu);
-}
+}*/
 
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s)
 {

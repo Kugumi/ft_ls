@@ -44,6 +44,7 @@ typedef struct	s_flags
 	int tfr;
 	int fir;
 	int reci;
+	int ac;
 }				t_flags;
 
 typedef	struct	s_f
@@ -88,6 +89,12 @@ typedef struct	s_dirs
 	struct s_dirs	*next;
 }				t_dirs;
 
+typedef struct	s_alldirs
+{
+	char				*name;
+	struct s_alldirs	*next;
+}				t_alldirs;
+
 typedef	struct	s_uv
 {
     t_ree_errors	*teroot;
@@ -99,23 +106,28 @@ typedef	struct	s_uv
     t_dirs			*firstforfree;
 	t_ree_trdirs	*tr_tdroot;
 	t_ree_trdirs	*tr_td;
+	t_ree_dir		*tr_temp;
+	t_ree_dir		*temp;
 }				t_trpointers;
 
 void			treeprint(t_ree_dir *td, t_flags *fl);
+void			treeprintr(t_ree_dir *td, t_flags *fl);
 t_dirs			*ft_lstsort(t_dirs *dirs);
 t_dirs			*ft_lstsortr(t_dirs *dirs);
 t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p);
 //t_ree_dir		filltdr(t_ree_dir *td, char *name);
 //t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_flags *fl);
 t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_flags *fl);
-void			ft_treedirs(char *name, t_flags *fl, t_trpointers *tp);
+t_ree_dir		*ft_treedirs(char *name, t_flags *fl);
 void			ft_treedirsr(char *name, t_flags *fl, t_trpointers *tp);
 void			ft_fillfl(t_flags *fl);
 void			ft_filldirs(t_dirs	*dirs);
 void			findtree(t_ree_trdirs *tua, t_flags *fl, int argc);
-t_ree_dir		ft_dir(char *name, t_flags *fl, struct	s_d	*tr_trees);
-t_ree_dir		ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees);
-void			ft_r(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp);
+void			findtreer(t_ree_trdirs *tua, t_flags *fl, int argc);
+t_ree_dir		*ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees);
+t_ree_dir		*ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees);
+void			ft_r(t_ree_dir *t, t_flags *fl, t_trpointers *tp);
+void			ft_r1(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
 void            ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl);
@@ -129,6 +141,7 @@ t_ree_files		*filltf(t_ree_files *tf, char *name);
 //void			ft_trfree(t_ree_trdirs *tua);
 void			freemem(t_ree_trdirs *tua, t_flags *fl);
 void			freedirs(t_dirs *dirs);
+void			freememdir(t_ree_dir *td, t_flags *fl);
 void			freememerr(t_ree_errors	*te, t_flags *fl);
 void			freememfiles(t_ree_files *tf, t_flags *fl);
 /*  typedef struct

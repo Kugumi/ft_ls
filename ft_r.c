@@ -13,14 +13,15 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void	ft_rr(t_ree_dir *td, t_flags *fl, t_trpointers *tp)
+void	ft_rr(t_ree_dir *td, t_flags *fl)
 {
 	struct stat	stbuf;
-	char *tmp;
+	char		*tmp;
+	t_ree_dir	*t;
 
 	if (td != NULL)
 	{
-		ft_rr(td->left, fl, tp);
+		ft_rr(td->left, fl);
 		if (td->dname != NULL)
 		{
 			if ((strcmp(td->dname, ".") != 0 && strcmp(td->dname, "..") != 0) && !(td->s))
@@ -28,33 +29,38 @@ void	ft_rr(t_ree_dir *td, t_flags *fl, t_trpointers *tp)
 				tmp = ft_strjoinp(td->path, td->dname);
 				free(td->path);
 				td->path = tmp;
-				lstat(td->path, &stbuf);
-				/*if (lstat(td->path, &stbuf) == -1)
-				{
+				if (lstat(td->path, &stbuf) != -1)
+				//{
 					//ft_errd(tp->tr_tda.tr_dir.tr_err, td->path, strerror(errno), fl);
 					//printf("ft_ls: %s: %s\n", td->path, strerror(errno));
-					return;
-				}*/
-				if ((stbuf.st_mode & S_IFMT) == S_IFDIR && (strcmp(td->dname, ".") != 0 && strcmp(td->dname, "..") != 0))
+				//	return;
+				//}
 				{
-					fl->reci = 1;
-					if (!fl->r)
-						ft_treedirs(td->path, fl, tp);
-					else
-						ft_treedirsr(td->path, fl, tp);
+					if ((stbuf.st_mode & S_IFMT) == S_IFDIR && (strcmp(td->dname, ".") != 0 && strcmp(td->dname, "..") != 0))
+					{
+						fl->reci = 1;
+						//if (!fl->r)
+						t = ft_treedirs(td->path, fl);
+						ft_rr(t, fl);
+						freememdir(t, fl);
+						/*else
+							ft_treedirsr(td->path, fl, tp);*/
+					}
 				}
 			}
 		}
-		ft_rr(td->right, fl, tp);
+		ft_rr(td->right, fl);
 	}
 }
 
-void	ft_r(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp)
+void	ft_r(t_ree_dir *t, t_flags *fl, t_trpointers *tp)
 {
-	if (tua != NULL)
-	{
-		ft_r(tua->left, fl, tp);
-		ft_rr(&(tua->tr_dir), fl, tp);
-		ft_r(tua->right, fl, tp);
-	}
+	//if (tua != NULL)
+	//{
+		//ft_r(tua->left, fl, tp);
+//		tp->temp = t;
+		ft_rr(t, fl);
+//		freememdir(temp, fl);
+		//ft_r(tua->right, fl, tp);
+	//
 }

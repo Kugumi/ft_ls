@@ -62,9 +62,9 @@ void	ft_trfree(t_ree_trdirs *tua)
 void 	freememdir(t_ree_dir *td, t_flags *fl)
 {
 	int i;
-	int j;
+//	int j;
 
-	j = 0;
+//	j = 0;
 	i = 0;
 	if (td == NULL)
 		return ;
@@ -85,10 +85,10 @@ void 	freememdir(t_ree_dir *td, t_flags *fl)
 	{
 		free(td->s);
 		td->s = NULL;
-		j = 1;
+//		j = 1;
 	}
-	if (i && !j)
-	{
+	//if (td->fft)
+	//{
 //		if (fl->reci)
 //			free(td->fofreetdr);
 		if (td->fft)
@@ -97,7 +97,7 @@ void 	freememdir(t_ree_dir *td, t_flags *fl)
 			free(td);
 //		td->left = NULL;
 //		td->right = NULL;
-	}
+	//}
 }
 
 void	freemem(t_ree_trdirs *tua, t_flags *fl)

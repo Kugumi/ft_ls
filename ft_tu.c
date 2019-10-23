@@ -12,11 +12,16 @@
 
 #include "ft_ls.h"
 
-void    ft_treedirs(char *name, t_flags *fl, t_trpointers *tp)
+t_ree_dir *ft_treedirs(char *name, t_flags *fl)
 {
-	if (!fl->tdr)
-	{
-		tp->tr_td = filltu(tp->tr_td, name, fl);
+	t_ree_dir		*t;
+	/*if (!fl->tdr)
+	{*/
+	if (!fl->r)
+		t = ft_dir(name, fl, t);
+	else
+		t = ft_dirr(name, fl, t);
+	//tm = filltu(tp->tr_td, name, fl);
 		/*if (tp->tr_tda.tr_dir.dname == 0)
 		{
 			free(tp->tr_tda.tdname);
@@ -24,11 +29,13 @@ void    ft_treedirs(char *name, t_flags *fl, t_trpointers *tp)
 			return ;
 		}*/
 		//tp->tr_td = &(tp->tr_tda);
-		tp->tr_tdroot = tp->tr_td;
+		//t = &(tm->tr_dir);
+		//tp->tr_temp = &(tp->tr_td->tr_dir);
+		//tp->tr_tdroot = tp->tr_td;
 		fl->tdr = 1;
-		return ;
-	}
-	tp->tr_td = tp->tr_tdroot;
+		return (t);
+	//}
+	/*tp->tr_td = tp->tr_tdroot;
 	while(1)
 	{
 		if (strcmp(tp->tr_td->tdname,name) >= 0)
@@ -36,13 +43,14 @@ void    ft_treedirs(char *name, t_flags *fl, t_trpointers *tp)
 			if (tp->tr_td->left ==  NULL)
 			{
 				tp->tr_td->left = filltu(tp->tr_td, name, fl);
-				/*if (tp->tr_td->left->tr_dir.dname == 0)
+				tp->tr_temp = &(tp->tr_td->left->tr_dir);
+				*//*if (tp->tr_td->left->tr_dir.dname == 0)
 				{
 					free(tp->tr_td->left->tdname);
 					free(tp->tr_td->left);
 					tp->tr_td->left = NULL;
 					return ;
-				}*/
+				}*//*
 				break ;
 			}
 			else
@@ -53,15 +61,16 @@ void    ft_treedirs(char *name, t_flags *fl, t_trpointers *tp)
 			if (tp->tr_td->right == NULL)
 			{
 				tp->tr_td->right = filltu(tp->tr_td, name, fl);
-				/*if (tp->tr_td->right->tr_dir.dname == 0)
+				tp->tr_temp = &(tp->tr_td->right->tr_dir);
+				*//*if (tp->tr_td->right->tr_dir.dname == 0)
 				{
 
 					return ;
-				}*/
+				}*//*
 				break ;
 			}
 			else
 				tp->tr_td = tp->tr_td->right;
 		}
-	}
+	}*/
 }

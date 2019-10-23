@@ -39,7 +39,7 @@ int	ft_flags(t_flags *fl, char *s)
 	}
 	return (0);
 }
-t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
+t_ree_dir	*ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 {
 	DIR 			*di;
 	struct dirent 	*dp;
@@ -50,7 +50,16 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 	{
 		fl->terd = 1;
 		tr_trees = ft_errd(tr_trees, strerror(errno), name, fl);
-		return (*tr_trees);
+		tr_trees->fofreetd = tr_trees;
+		tr_trees->fft = 1;
+		if (fl->rec && fl->fir)
+			printf("%s:\n", name);
+		else if (fl->ac > 2)
+			printf("%s:\n", name);
+		fl->fir = 1;
+		treeprint(tr_trees, fl);
+		write(1, "\n", 1);
+		return (tr_trees);
 	}
 	if ((dp = readdir(di)) != NULL)
 	{
@@ -88,8 +97,9 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 							if (td->left == NULL)
 							{
 								td->left = filltd(td, dp->d_name, name);
-								if (fl->reci)
-									tr_trees->fofreetdr = td->left;
+								//if (fl->reci)
+								/*tr_trees->fofreetdr = td->left;
+								tr_trees->fft = 1;*/
 								break;
 							}
 							else
@@ -100,8 +110,9 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 							if (td->right == NULL)
 							{
 								td->right = filltd(td, dp->d_name, name);
-								if (fl->reci)
-									tr_trees->fofreetdr = td->right;
+								//if (fl->reci)
+								/*tr_trees->fofreetdr = td->right;
+								tr_trees->fft = 1;*/
 								break;
 							}
 							else
@@ -113,11 +124,25 @@ t_ree_dir	ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 		}
 		closedir(di);
 		if (fl->tds == 0)
+		{
 			tr_trees = fillemp(tr_trees);
+			tr_trees->fofreetd = tr_trees;
+			tr_trees->fft = 1;
+		}
 		else
 			fl->tds = 0;
 	}
-	return (*tr_trees);
+	if (fl->rec && fl->fir)
+		printf("%s:\n", name);
+	else if (fl->ac > 2)
+		printf("%s:\n", name);
+	fl->fir = 1;
+	if (!fl->r)
+		treeprint(tr_trees, fl);
+	else
+		treeprintr(tr_trees, fl);
+	write(1, "\n", 1);
+	return (tr_trees);
 }
 
 void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
@@ -160,6 +185,8 @@ int	main(int argc, char **argv)
 	t_flags	fl;
 	t_trpointers	tp;
 //	t_ree_errors	te;
+	t_ree_dir		*t;
+	t_ree_dir		*temp;
 
 	i = 1;
 	ft_fillfl(&fl);
@@ -169,17 +196,20 @@ int	main(int argc, char **argv)
 			return (0);
 		i++;
 	}
-	ac = argc - (i - 1);
+	fl.ac = argc - (i - 1);
 	if (argc - i == 0)
 	{
-		ft_treedirs(".", &fl, &tp);
+		t = ft_treedirs(".", &fl);
 		if (fl.rec && fl.tdr)
-			ft_r(tp.tr_tdroot, &fl, &tp);
-		if (fl.tdr)
-			findtree(tp.tr_tdroot, &fl, ac);
+		{
+			ft_r(t, &fl, &tp);
+			freememdir(t, &fl);
+		}
+		/*if (fl.tdr)
+			findtree(tp.tr_tdroot, &fl, fl.ac);
 		//ft_trfree(&(tp.tr_tda));
 		if (fl.tdr)
-		    freemem(tp.tr_tdroot, &fl);
+		    freemem(tp.tr_tdroot, &fl);*/
 		return (0);
 	}
 	tp.dirs = NULL;
@@ -203,17 +233,28 @@ int	main(int argc, char **argv)
 	{
 		while (tp.first)
 		{
-			ft_treedirs(tp.first->name, &fl, &tp);
+			t = ft_treedirs(tp.first->name, &fl);
 			//ft_ls(tp.first->name, &fl, &tp);
 			if (fl.rec && fl.tdr)
-				ft_r(tp.tr_tdroot, &fl, &tp);
-			if (fl.tdr)
-				findtree(tp.tr_tdroot, &fl, ac);
+			{
+				//if (!fl.r)
+					ft_r(t, &fl, &tp);
+					freememdir(t, &fl);
+				/*else
+					ft_r1(tp.tr_tdroot, &fl, &tp);*/
+			}
+			/*if (fl.tdr)
+			{
+				if (!fl.r)
+					findtree(tp.tr_tdroot, &fl, ac);
+				else
+					findtreer(tp.tr_tdroot, &fl, ac);
+			}
 			if (fl.tdr)
 				freemem(tp.tr_tdroot, &fl);
 			//free(tp.tr_tdroot->tr_dir.fofreetdr);
 			//free(tp.tr_td->tr_dir.fofreetd);
-			//ft_trfree(&(tp.tr_tda));
+			//ft_trfree(&(tp.tr_tda));*/
 			tp.first = tp.first->next;
 			if (!tp.first)
 				break;
