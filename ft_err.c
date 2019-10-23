@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void 	freememerr(t_ree_errors	*te, t_flags *fl)
+void 	freememerr(t_ree_errors	*te, t_signs *fl)
 {
 	if (te == NULL)
 		return ;
@@ -42,7 +42,7 @@ void	errprint(t_ree_errors *te)
     }
 }
 
-void	ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl)
+void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 {
 	//static t_ree_errors	*te_root;
 
@@ -79,7 +79,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_flags *fl)
 	}
 }
 
-t_ree_dir *ft_errd(t_ree_dir *td, char *s, char *name, t_flags *fl)
+t_ree_dir *ft_errd(t_ree_dir *td, char *s, char *name, t_signs *fl)
 {
 	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
 	td->path = ft_strdup(name);

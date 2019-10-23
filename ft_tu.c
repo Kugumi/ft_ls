@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-t_ree_dir *ft_treedirs(char *name, t_flags *fl)
+t_ree_dir *ft_treedirs(char *name, t_signs *fl)
 {
 	t_ree_dir		*t;
 	/*if (!fl->tdr)

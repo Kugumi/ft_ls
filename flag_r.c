@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 #include <stdio.h>
-t_ree_dir	*ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees)
+t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 {
 	DIR 			*di;
 	struct dirent 	*dp;
@@ -115,7 +115,7 @@ t_ree_dir	*ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 	return (tr_trees);
 }
 
-/*void    ft_treedirsr(char *name, t_flags *fl, t_trpointers *tp)
+/*void    ft_treedirsr(char *name, t_signs *fl, t_trpointers *tp)
 {
 	if (!fl->tdr)
 	{
@@ -169,7 +169,7 @@ t_ree_dir	*ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 	}
 }*/
 
-/*void	ft_rrr(t_ree_dir *td, t_flags *fl, t_trpointers *tp)
+/*void	ft_rrr(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 {
 	struct stat	stbuf;
 	char *tmp;
@@ -206,7 +206,7 @@ t_ree_dir	*ft_dirr(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 }*/
 
 /*
-void	ft_r1(t_ree_trdirs *tua, t_flags *fl, t_trpointers *tp)
+void	ft_r1(t_ree_trdirs *tua, t_signs *fl, t_trpointers *tp)
 {
 	if (tua != NULL)
 	{

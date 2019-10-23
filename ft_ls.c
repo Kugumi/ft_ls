@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-int	ft_flags(t_flags *fl, char *s)
+int	ft_signs(t_signs *fl, char *s)
 {
 	int i;
 
@@ -39,7 +39,7 @@ int	ft_flags(t_flags *fl, char *s)
 	}
 	return (0);
 }
-t_ree_dir	*ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
+t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 {
 	DIR 			*di;
 	struct dirent 	*dp;
@@ -145,7 +145,7 @@ t_ree_dir	*ft_dir(char *name, t_flags *fl, t_ree_dir	*tr_trees)
 	return (tr_trees);
 }
 
-void	ft_ls(char *name, t_flags *fl, t_trpointers *tp)
+void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
 {
     struct stat stbuf;
 
@@ -182,7 +182,7 @@ int	main(int argc, char **argv)
 {
 	int		i;
 	int 	ac;
-	t_flags	fl;
+	t_signs	fl;
 	t_trpointers	tp;
 //	t_ree_errors	te;
 	t_ree_dir		*t;
@@ -192,7 +192,7 @@ int	main(int argc, char **argv)
 	ft_fillfl(&fl);
 	while (argv[i] && argv[i][0] == '-' && argv[i][1])
 	{
-		if ((ft_flags(&fl, argv[i])) == -1)
+		if ((ft_signs(&fl, argv[i])) == -1)
 			return (0);
 		i++;
 	}
@@ -226,9 +226,9 @@ int	main(int argc, char **argv)
 			ft_lstsortr(tp.first);
 	}
     if (fl.ter)
-    	errprint(tp.te);
+    	errprint(tp.teroot);
     if (fl.tfr)
-		filesprint(tp.tf);
+		filesprint(tp.tfroot);
     if (tp.dirs)
 	{
 		while (tp.first)
@@ -267,8 +267,8 @@ int	main(int argc, char **argv)
 	if (fl.tdr)
 		freedirs(tp.firstforfree);
 	if (fl.ter)
-		freememerr(tp.te, &fl);
+		freememerr(tp.teroot, &fl);
 	if (fl.tfr)
-		freememfiles(tp.tf, &fl);
+		freememfiles(tp.tfroot, &fl);
 	return (0);
 }

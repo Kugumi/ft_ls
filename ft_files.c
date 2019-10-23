@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void 	freememfiles(t_ree_files *tf, t_flags *fl)
+void 	freememfiles(t_ree_files *tf, t_signs *fl)
 {
 	if (tf == NULL)
 		return ;
@@ -37,7 +37,7 @@ void	filesprint(t_ree_files *tf)
 	}
 }
 
-void	ft_files(t_trpointers *tp, char *name, t_flags *fl)
+void	ft_files(t_trpointers *tp, char *name, t_signs *fl)
 {
 	//t_ree_files	*tf_root;
 

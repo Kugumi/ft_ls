@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void	treeprint(t_ree_dir *td, t_flags *fl)
+void	treeprint(t_ree_dir *td, t_signs *fl)
 {
 	if (td != NULL)
 	{
@@ -28,7 +28,7 @@ void	treeprint(t_ree_dir *td, t_flags *fl)
 	}
 }
 
-void	findtree(t_ree_trdirs *tua, t_flags *fl, int argc)
+void	findtree(t_ree_trdirs *tua, t_signs *fl, int argc)
 {
 	if (tua != NULL)
 	{

@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void	ft_fillfl(t_flags *fl)
+void	ft_fillfl(t_signs *fl)
 {
 	fl->t = 0;
 	fl->r = 0;

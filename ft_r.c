@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void	ft_rr(t_ree_dir *td, t_flags *fl)
+void	ft_rr(t_ree_dir *td, t_signs *fl)
 {
 	struct stat	stbuf;
 	char		*tmp;
@@ -53,7 +53,7 @@ void	ft_rr(t_ree_dir *td, t_flags *fl)
 	}
 }
 
-void	ft_r(t_ree_dir *t, t_flags *fl, t_trpointers *tp)
+void	ft_r(t_ree_dir *t, t_signs *fl, t_trpointers *tp)
 {
 	//if (tua != NULL)
 	//{
