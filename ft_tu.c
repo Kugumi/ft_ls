@@ -17,10 +17,22 @@ t_ree_dir *ft_treedirs(char *name, t_signs *fl, t_trpointers *tp)
 	t_ree_dir		*t;
 	/*if (!fl->tdr)
 	{*/
-	if (!fl->r)
-		t = ft_dir(name, fl, t, tp);
+	if (fl->r)
+	{
+		if (fl->t)
+			t = ft_dirrt(name, fl, t, tp);
+		else
+			t = ft_dirr(name, fl, t, tp);
+	}
+	else if (fl->t)
+	{
+		if (fl->r)
+			t = ft_dirrt(name, fl, t, tp);
+		else
+			t = ft_dirt(name, fl, t, tp);
+	}
 	else
-		t = ft_dirr(name, fl, t, tp);
+		t = ft_dir(name, fl, t, tp);
 	//tm = filltu(tp->tr_td, name, fl);
 		/*if (tp->tr_tda.tr_dir.dname == 0)
 		{

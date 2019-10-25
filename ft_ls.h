@@ -147,8 +147,8 @@ typedef	struct	s_uv
     t_dirs			*firstforfree;
 	t_ree_trdirs	*tr_tdroot;
 	t_ree_trdirs	*tr_td;
-	t_ree_dir		*tr_temp;
-	t_ree_dir		*temp;
+	long long		tsec;
+	char			*tmp;
 }				t_trpointers;
 
 void			treeprint(t_ree_dir *td, t_signs *fl, t_trpointers *tp);
@@ -166,7 +166,9 @@ void			ft_filldirs(t_dirs	*dirs);
 void			findtree(t_ree_trdirs *tua, t_signs *fl, int argc);
 void			findtreer(t_ree_trdirs *tua, t_signs *fl, int argc);
 t_ree_dir		*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
+t_ree_dir		*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
 t_ree_dir		*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
+t_ree_dir		*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
 void			ft_r(t_ree_dir *t, t_signs *fl, t_trpointers *tp);
 void			ft_r1(t_ree_trdirs *tua, t_signs *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
