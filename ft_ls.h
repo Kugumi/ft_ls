@@ -12,6 +12,9 @@
 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <grp.h>
+#include <pwd.h>
+#include <time.h>
 #include <dirent.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -29,6 +32,18 @@
 #define EILSEQ
 #define ERANGE
 extern int errno;
+
+typedef struct  s_lc
+{
+	int			c2;
+	size_t		c3;
+	size_t		c4;
+	int			cmajor;
+	int			cminor;
+	int			c5;
+	long long	total;
+	int			gg2;
+}               t_lc;
 
 typedef struct	s_signs
 {
@@ -50,9 +65,19 @@ typedef struct	s_signs
 
 typedef	struct	s_f
 {
-	char		*fname;
-	struct s_f	*right;
-	struct s_f	*left;
+	int 			nl;
+	int				major;
+	int				minor;
+	long long		size;
+	long long			sec;
+	char			*fname;
+	char			*time;
+	char 			*rwx;
+	char			*buff;
+	char			*uid;
+	char			*gid;
+	struct s_f		*right;
+	struct s_f		*left;
 }				t_ree_files;
 
 typedef	struct	s_e
@@ -65,12 +90,23 @@ typedef	struct	s_e
 
 typedef	struct	s_ree_dir
 {
-	int fft;
+	int 					nl;
+	int						major;
+	int						minor;
+	long long				size;
+	long long				sec;
+	char					*time;
+	char 					*rwx;
+	char					*buff;
+	char					*uid;
+	char					*gid;
+	int						fft;
 	struct s_ree_dir		*fofreetd;
 	struct s_ree_dir		*fofreetdr;
-	char			*path;
-	char			*dname;
-	char			*s;         //for strerror
+	char					*path;
+	char					*dname;
+	int 					gg;
+	char					*s;         //for strerror
 	struct s_ree_dir		*right;
 	struct s_ree_dir		*left;
 }				t_ree_dir;
@@ -98,6 +134,10 @@ typedef struct	s_alldirs
 
 typedef	struct	s_uv
 {
+	int 			gg;
+	int				l;
+	int 			t;
+	t_lc			lenc;
     t_ree_errors	*teroot;
 	t_ree_errors    *te;
 	t_ree_files		*tfroot;
@@ -111,40 +151,48 @@ typedef	struct	s_uv
 	t_ree_dir		*temp;
 }				t_trpointers;
 
-void			treeprint(t_ree_dir *td, t_signs *fl);
+void			treeprint(t_ree_dir *td, t_signs *fl, t_trpointers *tp);
 void			treeprintr(t_ree_dir *td, t_signs *fl);
 t_dirs			*ft_lstsort(t_dirs *dirs);
 t_dirs			*ft_lstsortr(t_dirs *dirs);
-t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p);
+t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp);
 //t_ree_dir		filltdr(t_ree_dir *td, char *name);
 //t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_signs *fl);
 t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_signs *fl);
-t_ree_dir		*ft_treedirs(char *name, t_signs *fl);
+t_ree_dir		*ft_treedirs(char *name, t_signs *fl, t_trpointers *tp);
 void			ft_treedirsr(char *name, t_signs *fl, t_trpointers *tp);
-void			ft_fillfl(t_signs *fl);
+void			ft_fillfl(t_signs *fl, t_trpointers	*tp);
 void			ft_filldirs(t_dirs	*dirs);
 void			findtree(t_ree_trdirs *tua, t_signs *fl, int argc);
 void			findtreer(t_ree_trdirs *tua, t_signs *fl, int argc);
-t_ree_dir		*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees);
-t_ree_dir		*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees);
+t_ree_dir		*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
+t_ree_dir		*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
 void			ft_r(t_ree_dir *t, t_signs *fl, t_trpointers *tp);
 void			ft_r1(t_ree_trdirs *tua, t_signs *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
 void            ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl);
 void			ft_files(t_trpointers *tp, char *name, t_signs *fl);
+void			ft_filesr(t_trpointers *tp, char *name, t_signs *fl);
 void            errprint(t_ree_errors *te);
-void			filesprint(t_ree_files *tf);
+void			filesprint(t_ree_files *tf, t_signs *fl, t_trpointers *tp);
 t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name, t_signs *fl);
 char			*ft_name(char *name);
 t_ree_dir		*fillemp(t_ree_dir *td);
-t_ree_files		*filltf(t_ree_files *tf, char *name);
+t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, t_trpointers *tp);
 //void			ft_trfree(t_ree_trdirs *tua);
 void			freemem(t_ree_trdirs *tua, t_signs *fl);
 void			freedirs(t_dirs *dirs);
-void			freememdir(t_ree_dir *td, t_signs *fl);
+void			freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp);
 void			freememerr(t_ree_errors	*te, t_signs *fl);
 void			freememfiles(t_ree_files *tf, t_signs *fl);
+char			*drwx(int mode);
+void			chtime(char *time);
+t_lc			total(char *name, t_lc len, t_trpointers *tp);
+t_lc			zerostruct(t_lc	len);
+long long		totaltotal(char *name, t_trpointers *tp, t_signs *fl);
+
+int	ft_lenlst(t_dirs *forlen);
 /*  typedef struct
 {
 	long ino; //номер inode

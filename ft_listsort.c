@@ -6,21 +6,13 @@ t_dirs *ft_lstsortr(t_dirs *dirs)
 	int i;
 	int ii;
 	t_dirs *forsort2;
-	t_dirs *len;
 	t_dirs *nul;
 
 	nul = dirs;
-	len = dirs;
 	i = 0;
-	l = 1;
-	while (len->next)
+	l = ft_lenlst(nul);
+	while (i++ < l && !(ii = 0))
 	{
-		len = len->next;
-		l++;
-	}
-	while (i++ < l)
-	{
-		ii = 0;
 		dirs = nul;
 		while (ii++ < (l - 1))
 		{
@@ -41,21 +33,13 @@ t_dirs *ft_lstsort(t_dirs *dirs)
     int i;
     int ii;
     t_dirs *forsort2;
-    t_dirs *len;
     t_dirs *nul;
 
     nul = dirs;
-    len = dirs;
     i = 0;
-    l = 1;
-    while (len->next)
+    l = ft_lenlst(nul);
+    while (i++ < l && !(ii = 0))
     {
-        len = len->next;
-        l++;
-    }
-    while (i++ < l)
-    {
-        ii = 0;
         dirs = nul;
         while (ii++ < (l - 1))
         {

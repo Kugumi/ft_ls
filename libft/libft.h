@@ -90,5 +90,4 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 void                ft_swap(char **a, char **b);
 char                *ft_strrev(char *str);
-
 #endif

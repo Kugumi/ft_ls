@@ -28,7 +28,7 @@ void	treeprintr(t_ree_dir *td, t_signs *fl)
 	}
 }
 
-void	findtreer(t_ree_trdirs *tua, t_signs *fl, int argc)
+/*void	findtreer(t_ree_trdirs *tua, t_signs *fl, int argc)
 {
 	if (tua != NULL)
 	{
@@ -38,8 +38,8 @@ void	findtreer(t_ree_trdirs *tua, t_signs *fl, int argc)
 		else if (argc > 2)
             printf("%s:\n", tua->tdname);
 		fl->fir = 1;
-		treeprint(&(tua->tr_dir), fl);
+		treeprint(&(tua->tr_dir), fl, tp);
 		write(1, "\n", 1);
 		findtreer(tua->left, fl, argc);
 	}
-}
+}*/

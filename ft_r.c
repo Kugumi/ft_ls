@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void	ft_rr(t_ree_dir *td, t_signs *fl)
+void	ft_rr(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 {
 	struct stat	stbuf;
 	char		*tmp;
@@ -21,7 +21,7 @@ void	ft_rr(t_ree_dir *td, t_signs *fl)
 
 	if (td != NULL)
 	{
-		ft_rr(td->left, fl);
+		ft_rr(td->left, fl, tp);
 		if (td->dname != NULL)
 		{
 			if ((ft_strcmp(td->dname, ".") != 0 && ft_strcmp(td->dname, "..") != 0) && !(td->s))
@@ -40,16 +40,16 @@ void	ft_rr(t_ree_dir *td, t_signs *fl)
 					{
 						fl->reci = 1;
 						//if (!fl->r)
-						t = ft_treedirs(td->path, fl);
-						ft_rr(t, fl);
-						freememdir(t, fl);
+						t = ft_treedirs(td->path, fl, tp);
+						ft_rr(t, fl, tp);
+						freememdir(t, fl, tp);
 						/*else
 							ft_treedirsr(td->path, fl, tp);*/
 					}
 				}
 			}
 		}
-		ft_rr(td->right, fl);
+		ft_rr(td->right, fl, tp);
 	}
 }
 
@@ -59,7 +59,7 @@ void	ft_r(t_ree_dir *t, t_signs *fl, t_trpointers *tp)
 	//{
 		//ft_r(tua->left, fl, tp);
 //		tp->temp = t;
-		ft_rr(t, fl);
+		ft_rr(t, fl, tp);
 //		freememdir(temp, fl);
 		//ft_r(tua->right, fl, tp);
 	//

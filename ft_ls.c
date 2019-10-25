@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-int	ft_signs(t_signs *fl, char *s)
+int	ft_signs(t_signs *fl, t_trpointers	*tp, char *s)
 {
 	int i;
 
@@ -21,9 +21,15 @@ int	ft_signs(t_signs *fl, char *s)
 	while(s[i])
 	{
 		if (s[i] == 't')
+		{
 			fl->t = 1;
+			tp->l = 1;
+		}
 		else if (s[i] == 'l')
+		{
 			fl->l = 1;
+			tp->l = 1;
+		}
 		else if (s[i] == 'r')
 			fl->r = 1;
 		else if (s[i] == 'R')
@@ -41,13 +47,14 @@ int	ft_signs(t_signs *fl, char *s)
 	}
 	return (0);
 }
-t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
+t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp)
 {
 	DIR 			*di;
 	struct dirent 	*dp;
 	t_ree_dir				*td_root;
 	t_ree_dir				*td;
 
+	tp->lenc = zerostruct(tp->lenc);
 	if ((di = opendir(name)) == NULL)
 	{
 		fl->terd = 1;
@@ -59,7 +66,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 		else if (fl->ac > 2)
 			printf("%s:\n", name);
 		fl->fir = 1;
-		treeprint(tr_trees, fl);
+		treeprint(tr_trees, fl, tp);
 		write(1, "\n", 1);
 		return (tr_trees);
 	}
@@ -68,7 +75,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 		if (!fl->tds && fl->a)
 		{
 			fl->tds = 1;
-			tr_trees = filltd(tr_trees, dp->d_name, name);
+			tr_trees = filltd(tr_trees, dp->d_name, name, tp);
 			td = tr_trees;
 			td_root = td;
 			tr_trees->fofreetd = tr_trees;
@@ -83,7 +90,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 				if (!fl->tds)
 				{
 					fl->tds = 1;
-					tr_trees = filltd(tr_trees, dp->d_name, name);
+					tr_trees = filltd(tr_trees, dp->d_name, name, tp);
 					td = tr_trees;
 					td_root = td;
 					tr_trees->fofreetd = tr_trees;
@@ -98,7 +105,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 						{
 							if (td->left == NULL)
 							{
-								td->left = filltd(td, dp->d_name, name);
+								td->left = filltd(td, dp->d_name, name, tp);
 								//if (fl->reci)
 								/*tr_trees->fofreetdr = td->left;
 								tr_trees->fft = 1;*/
@@ -111,7 +118,7 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 						{
 							if (td->right == NULL)
 							{
-								td->right = filltd(td, dp->d_name, name);
+								td->right = filltd(td, dp->d_name, name, tp);
 								//if (fl->reci)
 								/*tr_trees->fofreetdr = td->right;
 								tr_trees->fft = 1;*/
@@ -131,18 +138,17 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 			tr_trees->fofreetd = tr_trees;
 			tr_trees->fft = 1;
 		}
-		else
-			fl->tds = 0;
 	}
 	if (fl->rec && fl->fir)
 		printf("%s:\n", name);
 	else if (fl->ac > 2)
 		printf("%s:\n", name);
+	if (fl->tds)
+		printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
-	if (!fl->r)
-		treeprint(tr_trees, fl);
-	else
-		treeprintr(tr_trees, fl);
+	if (fl->tds)
+		treeprint(tr_trees, fl, tp);
+	fl->tds = 0;
 	write(1, "\n", 1);
 	return (tr_trees);
 }
@@ -161,7 +167,7 @@ void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
     {
     	if (!tp->dirs)
     	{
-            tp->dirs = (t_dirs *) malloc(sizeof(t_dirs));
+            tp->dirs = (t_dirs *)malloc(sizeof(t_dirs));
 			tp->dirs->name = ft_strdup(name);
 			tp->first = tp->dirs;
 			tp->dirs->next = NULL;
@@ -169,7 +175,7 @@ void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
         }
     	else
         {
-			tp->dirs->next = (t_dirs *) malloc(sizeof(t_dirs));
+			tp->dirs->next = (t_dirs *)malloc(sizeof(t_dirs));
 			tp->dirs = tp->dirs->next;
     	    tp->dirs->name = ft_strdup(name);
     	    tp->dirs->next = NULL;
@@ -177,7 +183,10 @@ void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
         return ;
     }
     else
-        ft_files(tp, name, fl);
+    	if (!fl->r)
+        	ft_files(tp, name, fl);
+    	else
+			ft_filesr(tp, name, fl);
 }
 
 int	main(int argc, char **argv)
@@ -191,24 +200,24 @@ int	main(int argc, char **argv)
 	t_ree_dir		*temp;
 
 	i = 1;
-	ft_fillfl(&fl);
+	ft_fillfl(&fl, &tp);
 	while (argv[i] && argv[i][0] == '-' && argv[i][1])
 	{
-		if ((ft_signs(&fl, argv[i])) == -1)
+		if (ft_signs(&fl, &tp, argv[i]) == -1)
 			return (0);
 		i++;
 	}
 	fl.ac = argc - (i - 1);
 	if (argc - i == 0)
 	{
-		t = ft_treedirs(".", &fl);
+		t = ft_treedirs(".", &fl, &tp);
 		if (fl.rec && fl.tdr)
 		{
 			ft_r(t, &fl, &tp);
-			freememdir(t, &fl);
+			freememdir(t, &fl, &tp);
 		}
 		else
-			freememdir(t, &fl);
+			freememdir(t, &fl, &tp);
 		/*if (fl.tdr)
 			findtree(tp.tr_tdroot, &fl, fl.ac);
 		//ft_trfree(&(tp.tr_tda));
@@ -232,23 +241,23 @@ int	main(int argc, char **argv)
     if (fl.ter)
     	errprint(tp.teroot);
     if (fl.tfr)
-		filesprint(tp.tfroot);
+		filesprint(tp.tfroot, &fl, &tp);
     if (tp.dirs)
 	{
 		while (tp.first)
 		{
-			t = ft_treedirs(tp.first->name, &fl);
+			t = ft_treedirs(tp.first->name, &fl, &tp);
 			//ft_ls(tp.first->name, &fl, &tp);
 			if (fl.rec && fl.tdr)
 			{
 				//if (!fl.r)
 					ft_r(t, &fl, &tp);
-					freememdir(t, &fl);
+					freememdir(t, &fl, &tp);
 				/*else
 					ft_r1(tp.tr_tdroot, &fl, &tp);*/
 			}
 			else
-				freememdir(t, &fl);
+				freememdir(t, &fl, &tp);
 			/*if (fl.tdr)
 			{
 				if (!fl.r)

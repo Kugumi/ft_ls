@@ -12,13 +12,14 @@
 
 #include "ft_ls.h"
 #include <stdio.h>
-t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
+t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp)
 {
 	DIR 			*di;
 	struct dirent 	*dp;
 	t_ree_dir				*td_root;
 	t_ree_dir				*td;
 
+	tp->lenc = zerostruct(tp->lenc);
 	if ((di = opendir(name)) == NULL)
 	{
 		fl->terd = 1;
@@ -30,7 +31,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 		else if (fl->ac > 2)
 			printf("%s:\n", name);
 		fl->fir = 1;
-		treeprint(tr_trees, fl);
+		treeprint(tr_trees, fl, tp);
 		write(1, "\n", 1);
 		return (tr_trees);
 	}
@@ -39,7 +40,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 		if (!fl->tds && fl->a)
 		{
 			fl->tds = 1;
-			tr_trees = filltd(tr_trees, dp->d_name, name);
+			tr_trees = filltd(tr_trees, dp->d_name, name, tp);
 			td = tr_trees;
 			td_root = td;
 			tr_trees->fofreetd = tr_trees;
@@ -54,7 +55,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 				if (!fl->tds)
 				{
 					fl->tds = 1;
-					tr_trees = filltd(tr_trees, dp->d_name, name);
+					tr_trees = filltd(tr_trees, dp->d_name, name, tp);
 					td = tr_trees;
 					td_root = td;
 					tr_trees->fofreetd = tr_trees;
@@ -69,7 +70,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 						{
 							if (td->left == NULL)
 							{
-								td->left = filltd(td, dp->d_name, name);
+								td->left = filltd(td, dp->d_name, name, tp);
 								//if (fl->reci)
 								/*tr_trees->fofreetdr = td->left;
 								tr_trees->fft = 1;*/
@@ -82,7 +83,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 						{
 							if (td->right == NULL)
 							{
-								td->right = filltd(td, dp->d_name, name);
+								td->right = filltd(td, dp->d_name, name, tp);
 								//if (fl->reci)
 								/*tr_trees->fofreetdr = td->right;
 								tr_trees->fft = 1;*/
@@ -102,15 +103,16 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees)
 			tr_trees->fofreetd = tr_trees;
 			tr_trees->fft = 1;
 		}
-		else
-			fl->tds = 0;
 	}
 	if (fl->rec && fl->fir)
-		ft_printf("%s:\n", name);
+		printf("%s:\n", name);
 	else if (fl->ac > 2)
-		ft_printf("%s:\n", name);
+		printf("%s:\n", name);
+	if (fl->tds)
+		printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
-	treeprint(tr_trees, fl);
+	fl->tds = 0;
+	treeprint(tr_trees, fl, tp);
 	write(1, "\n", 1);
 	return (tr_trees);
 }

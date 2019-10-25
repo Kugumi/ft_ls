@@ -59,17 +59,17 @@ void	ft_trfree(t_ree_trdirs *tua)
 	}
 }*/
 
-void 	freememdir(t_ree_dir *td, t_signs *fl)
+void 	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 {
 	int i;
-//	int j;
+	int j;
 
-//	j = 0;
+	j = 0;
 	i = 0;
 	if (td == NULL)
 		return ;
-	freememdir(td->left, fl);
-	freememdir(td->right, fl);
+	freememdir(td->left, fl, tp);
+	freememdir(td->right, fl, tp);
 	if (td->path)
 	{
 		i = 1;
@@ -85,7 +85,19 @@ void 	freememdir(t_ree_dir *td, t_signs *fl)
 	{
 		free(td->s);
 		td->s = NULL;
-//		j = 1;
+		j = 1;
+	}
+	if ((fl->l || fl->t) && i && !j && td->gg)
+	{
+		free(td->time);
+		if (fl->l)
+		{
+			free(td->uid);
+			free(td->gid);
+			free(td->rwx);
+			if (td->buff)
+				free(td->buff);
+		}
 	}
 	//if (td->fft)
 	//{
@@ -100,7 +112,7 @@ void 	freememdir(t_ree_dir *td, t_signs *fl)
 	//}
 }
 
-void	freemem(t_ree_trdirs *tua, t_signs *fl)
+/*void	freemem(t_ree_trdirs *tua, t_signs *fl)
 {
 	if (tua == NULL)
 		return ;
@@ -117,4 +129,4 @@ void	freemem(t_ree_trdirs *tua, t_signs *fl)
 //	tua->left = NULL;
 //	tua->right = NULL;
 	free(tua);
-}
+}*/
