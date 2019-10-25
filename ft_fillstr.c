@@ -12,15 +12,6 @@
 
 #include "ft_ls.h"
 
-/*  t_ree_dir	filltdr(t_ree_dir *td, char *name)
-{
-	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
-	td->dname = ft_strdup(name);
-	td->right = NULL;
-	td->left = NULL;
-	return (*td);
-}*/
-
 t_ree_dir	*fillemp(t_ree_dir *td)
 {
 	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
@@ -47,7 +38,6 @@ t_ree_dir	*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp)
 		if (lstat(name, &stbuf) != -1)
 		{
 			td->gg = 1;
-			tp->lenc.gg2 = 0;
 			tp->lenc = total(name, tp->lenc, tp);
 			td->time = ctime(&stbuf.st_ctime);
 			td->sec = stbuf.st_ctime;
@@ -82,30 +72,6 @@ t_ree_dir	*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp)
 		free(name);
 	return (td);
 }
-
-/*t_ree_trdirs	filltur(t_ree_trdirs *tu, char *name, t_signs *fl)
-{
-	tu = (t_ree_trdirs *)malloc(sizeof(t_ree_trdirs));
-	tu->tdname = ft_strdup(name);
-	tu->tr_dir = ft_dir(name, fl, &(tu->tr_dir));
-	tu->right = NULL;
-	tu->left = NULL;
-	return (*tu);
-}*/
-
-/*t_ree_trdirs	*filltu(t_ree_trdirs *tu, char *name, t_signs *fl)
-{
-	tu = (t_ree_trdirs *)malloc(sizeof(t_ree_trdirs));
-	tu->tdname = ft_strdup(name);
-	//if (!fl->r)
-	tu->tr_dir= ft_dir(name, fl, &(tu->tr_dir));
-
-	*//*else
-		tu->tr_dir= ft_dirr(name, fl, &(tu->tr_dir));*//*
-	tu->right = NULL;
-	tu->left = NULL;
-	return (tu);
-}*/
 
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s)
 {

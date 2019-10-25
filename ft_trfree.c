@@ -25,40 +25,6 @@ void	freedirs(t_dirs *dirs)
 	}
 }
 
-/*void	ft_dirfree(t_ree_dir *td)
-{
-	t_ree_dir *l;
-	t_ree_dir *r;
-
-	if (td != NULL)
-	{
-		ft_dirfree(td->left);
-		r = td->right;
-		free(td->path);
-		free(td->dname);
-		if (td->s)
-			free(td->s);
-		free(td);
-		ft_dirfree(r);
-	}
-}
-
-void	ft_trfree(t_ree_trdirs *tua)
-{
-	t_ree_trdirs *l;
-	t_ree_trdirs *r;
-
-	if (tua != NULL)
-	{
-		ft_trfree(tua->left);
-		r = tua->right;
-		ft_dirfree(&(tua->tr_dir));
-		free(tua->tdname);
-		free(tua);
-		ft_trfree(r);
-	}
-}*/
-
 void 	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 {
 	int i;
@@ -99,34 +65,8 @@ void 	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 				free(td->buff);
 		}
 	}
-	//if (td->fft)
-	//{
-//		if (fl->reci)
-//			free(td->fofreetdr);
 		if (td->fft)
 			free(td->fofreetd);
 		else
 			free(td);
-//		td->left = NULL;
-//		td->right = NULL;
-	//}
 }
-
-/*void	freemem(t_ree_trdirs *tua, t_signs *fl)
-{
-	if (tua == NULL)
-		return ;
-	freemem(tua->left, fl);
-	freemem(tua->right, fl);
-	free(tua->tdname);
-	freememdir(&(tua->tr_dir), fl);
-//	if (tua->fftu)
-//		free(tua);
-//	free(tua->tr_dir.fofreetdr);
-//	free(tua->tr_dir.fofreetd);
-//	free(tua->tdname);
-//	tua->tdname = NULL;
-//	tua->left = NULL;
-//	tua->right = NULL;
-	free(tua);
-}*/

@@ -43,8 +43,6 @@ void	errprint(t_ree_errors *te)
 
 void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 {
-	//static t_ree_errors	*te_root;
-
 	if (!fl->ter)
 	{
 		fl->ter = 1;

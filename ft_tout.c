@@ -25,7 +25,6 @@ void	treeprint(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 			ft_printf("%s\n", td->dname);
 		else if (td->dname != NULL && fl->l && td->gg)
 		{
-//			printf("total %lld\n", tp->lenc.total);
 			ft_printf("%s  ", td->rwx);
 			ft_printf("%*d ",tp->lenc.c2, td->nl);
 			ft_printf("%-*s  ", (int)tp->lenc.c3, td->uid);
@@ -51,19 +50,3 @@ void	treeprint(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 		treeprint(td->right, fl, tp);
 	}
 }
-
-/*void	findtree(t_ree_trdirs *tua, t_signs *fl, int argc)
-{
-	if (tua != NULL)
-	{
-		findtree(tua->left, fl, argc);
-		if (fl->rec && fl->fir)
-			printf("%s:\n", tua->tdname);
-		else if (argc > 2)
-            printf("%s:\n", tua->tdname);
-		fl->fir = 1;
-		treeprint(&(tua->tr_dir), fl, tp);
-		write(1, "\n", 1);
-		findtree(tua->right, fl, argc);
-	}
-}*/

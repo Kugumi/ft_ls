@@ -30,21 +30,13 @@ void	ft_rr(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 				free(td->path);
 				td->path = tmp;
 				if (lstat(td->path, &stbuf) != -1)
-				//{
-					//ft_errd(tp->tr_tda.tr_dir.tr_err, td->path, strerror(errno), fl);
-					//printf("ft_ls: %s: %s\n", td->path, strerror(errno));
-				//	return;
-				//}
 				{
 					if ((stbuf.st_mode & S_IFMT) == S_IFDIR && (ft_strcmp(td->dname, ".") != 0 && ft_strcmp(td->dname, "..") != 0))
 					{
 						fl->reci = 1;
-						//if (!fl->r)
 						t = ft_treedirs(td->path, fl, tp);
 						ft_rr(t, fl, tp);
 						freememdir(t, fl, tp);
-						/*else
-							ft_treedirsr(td->path, fl, tp);*/
 					}
 				}
 			}
@@ -55,12 +47,5 @@ void	ft_rr(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 
 void	ft_r(t_ree_dir *t, t_signs *fl, t_trpointers *tp)
 {
-	//if (tua != NULL)
-	//{
-		//ft_r(tua->left, fl, tp);
-//		tp->temp = t;
 		ft_rr(t, fl, tp);
-//		freememdir(temp, fl);
-		//ft_r(tua->right, fl, tp);
-	//
 }

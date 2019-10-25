@@ -51,11 +51,9 @@ t_lc	zerostruct(t_lc	len)
 t_lc	total(char *name, t_lc len, t_trpointers *tp)
 {
 	struct stat		stbuf;
-	struct dirent	*infdir;
 
 	if (lstat(name, &stbuf) != -1)
 	{
-		len.gg2 = 1;
 		if (len.c2 < ft_lennbr((int) stbuf.st_nlink))
 			len.c2 = ft_lennbr((int) stbuf.st_nlink);
 		if (len.c3 < ft_strlen(getpwuid(stbuf.st_uid)->pw_name))

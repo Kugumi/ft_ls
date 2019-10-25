@@ -32,9 +32,3 @@ void	ft_fillfl(t_signs *fl, t_trpointers	*tp)
 	tp->l = 0;
 	tp->gg = 0;
 }
-
-/*void	ft_filldirs(t_dirs	*dirs)
-{
-	dirs->name = NULL;
-	dirs->next = NULL;
-}*/

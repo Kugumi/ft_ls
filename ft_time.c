@@ -28,12 +28,11 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 		tr_trees->fofreetd = tr_trees;
 		tr_trees->fft = 1;
 		if (fl->rec && fl->fir)
-			ft_printf("%s:\n", name);
+			ft_printf("\n%s:\n", name);
 		else if (fl->ac > 2)
-			ft_printf("%s:\n", name);
+			ft_printf("\n%s:\n", name);
 		fl->fir = 1;
 		treeprint(tr_trees, fl, tp);
-		write(1, "\n", 1);
 		return (tr_trees);
 	}
 	if ((dp = readdir(di)) != NULL)
@@ -76,9 +75,6 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 							if (td->left == NULL)
 							{
 								td->left = filltd(td, dp->d_name, name, tp);
-								//if (fl->reci)
-								/*tr_trees->fofreetdr = td->left;
-								tr_trees->fft = 1;*/
 								break;
 							}
 							else
@@ -89,9 +85,6 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 							if (td->right == NULL)
 							{
 								td->right = filltd(td, dp->d_name, name, tp);
-								//if (fl->reci)
-								/*tr_trees->fofreetdr = td->right;
-								tr_trees->fft = 1;*/
 								break;
 							}
 							else
@@ -110,16 +103,15 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 		}
 	}
 	if (fl->rec && fl->fir)
-		ft_printf("%s:\n", name);
+		ft_printf("\n%s:\n", name);
 	else if (fl->ac > 2)
-		ft_printf("%s:\n", name);
-	if (fl->tds)
+		ft_printf("\n%s:\n", name);
+	if (fl->tds && fl->l)
 		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
 	if (fl->tds)
 		treeprint(tr_trees, fl, tp);
 	fl->tds = 0;
-	write(1, "\n", 1);
 	return (tr_trees);
 }
 
@@ -139,12 +131,11 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 		tr_trees->fofreetd = tr_trees;
 		tr_trees->fft = 1;
 		if (fl->rec && fl->fir)
-			ft_printf("%s:\n", name);
+			ft_printf("\n%s:\n", name);
 		else if (fl->ac > 2)
-			ft_printf("%s:\n", name);
+			ft_printf("\n%s:\n", name);
 		fl->fir = 1;
 		treeprint(tr_trees, fl, tp);
-		write(1, "\n", 1);
 		return (tr_trees);
 	}
 	if ((dp = readdir(di)) != NULL)
@@ -187,9 +178,6 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 							if (td->left == NULL)
 							{
 								td->left = filltd(td, dp->d_name, name, tp);
-								//if (fl->reci)
-								/*tr_trees->fofreetdr = td->left;
-								tr_trees->fft = 1;*/
 								break;
 							}
 							else
@@ -200,9 +188,6 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 							if (td->right == NULL)
 							{
 								td->right = filltd(td, dp->d_name, name, tp);
-								//if (fl->reci)
-								/*tr_trees->fofreetdr = td->right;
-								tr_trees->fft = 1;*/
 								break;
 							}
 							else
@@ -221,14 +206,13 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 		}
 	}
 	if (fl->rec && fl->fir)
-		ft_printf("%s:\n", name);
+		ft_printf("\n%s:\n", name);
 	else if (fl->ac > 2)
-		ft_printf("%s:\n", name);
-	if (fl->tds)
+		ft_printf("\n%s:\n", name);
+	if (fl->tds && fl->l)
 		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
 	fl->tds = 0;
 	treeprint(tr_trees, fl, tp);
-	write(1, "\n", 1);
 	return (tr_trees);
 }

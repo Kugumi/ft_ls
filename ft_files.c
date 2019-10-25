@@ -75,8 +75,6 @@ void	filesprint(t_ree_files *tf, t_signs *fl, t_trpointers *tp)
 
 void	ft_filesr(t_trpointers *tp, char *name, t_signs *fl)
 {
-	//t_ree_files	*tf_root;
-
 	if (!fl->tfr)
 	{
 		tp->lenc = zerostruct(tp->lenc);
@@ -113,8 +111,6 @@ void	ft_filesr(t_trpointers *tp, char *name, t_signs *fl)
 
 void	ft_files(t_trpointers *tp, char *name, t_signs *fl)
 {
-	//t_ree_files	*tf_root;
-
 	if (!fl->tfr)
 	{
 		tp->lenc = zerostruct(tp->lenc);
