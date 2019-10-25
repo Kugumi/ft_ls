@@ -59,6 +59,7 @@ void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
     }
     if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
     {
+    	tp->i++;
     	if (!tp->dirs)
     	{
             tp->dirs = (t_dirs *)malloc(sizeof(t_dirs));
@@ -78,6 +79,7 @@ void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
     }
     else
 	{
+		tp->ifile++;
 		if (fl->r)
 		{
 			if (fl->t)
@@ -105,6 +107,8 @@ int	main(int argc, char **argv)
 	t_ree_dir		*t;
 
 	i = 1;
+	tp.i = 0;
+	tp.ifile = 0;
 	ft_fillfl(&fl, &tp);
 	while (argv[i] && argv[i][0] == '-' && argv[i][1])
 	{
@@ -130,7 +134,6 @@ int	main(int argc, char **argv)
     {
         ft_ls(argv[i], &fl, &tp);
         i++;
-        tp.i = i;
     }
     if (tp.dirs)
 	{

@@ -105,7 +105,15 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 	if (fl->rec && fl->fir)
 		ft_printf("\n%s:\n", name);
 	else if (fl->ac > 2)
-		ft_printf("\n%s:\n", name);
+	{
+		if(tp->i >= 1 && !tp->ifile)
+		{
+			ft_printf("%s:\n", name);
+			tp->i = 0;
+		}
+		else
+			ft_printf("\n%s:\n", name);
+	}
 	if (fl->tds && fl->l)
 		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
@@ -208,7 +216,15 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 	if (fl->rec && fl->fir)
 		ft_printf("\n%s:\n", name);
 	else if (fl->ac > 2)
-		ft_printf("\n%s:\n", name);
+	{
+		if(tp->i >= 1 && !tp->ifile)
+		{
+			ft_printf("%s:\n", name);
+			tp->i = 0;
+		}
+		else
+			ft_printf("\n%s:\n", name);
+	}
 	if (fl->tds && fl->l)
 		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;

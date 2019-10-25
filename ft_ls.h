@@ -119,6 +119,7 @@ typedef	struct	s_uv
 	int				l;
 	int 			t;
 	int				i;
+	int				ifile;
 	t_lc			lenc;
     t_ree_errors	*teroot;
 	t_ree_errors    *te;

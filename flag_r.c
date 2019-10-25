@@ -106,7 +106,15 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir *tr_trees,\
 	if (fl->rec && fl->fir)
 		ft_printf("\n%s:\n", name);
 	else if (fl->ac > 2)
-		ft_printf("\n%s:\n", name);
+	{
+		if(tp->i >= 1 && !tp->ifile)
+		{
+			ft_printf("%s:\n", name);
+			tp->i = 0;
+		}
+		else
+			ft_printf("\n%s:\n", name);
+	}
 	if (fl->tds && fl->l)
 		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
