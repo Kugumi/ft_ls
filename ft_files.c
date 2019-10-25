@@ -137,3 +137,79 @@ void	ft_files(t_trpointers *tp, char *name, t_signs *fl)
 		}
 	}
 }
+
+void	ft_filesrt(t_trpointers *tp, char *name, t_signs *fl)
+{
+	//t_ree_files	*tf_root;
+
+	if (!fl->tfr)
+	{
+		tp->lenc = zerostruct(tp->lenc);
+		fl->tfr = 1;
+		tp->tfroot = filltf(tp->tfroot, name, fl, tp);
+		tp->tf = tp->tfroot;
+		return ;
+	}
+	tp->tf = tp->tfroot;
+	while (1)
+	{
+		if (ft_strcmp(tp->tf->fname, name) >= 0)
+		{
+			if (tp->tf->left == NULL)
+			{
+				tp->tf->left = filltf(tp->tf, name, fl, tp);
+				break ;
+			}
+			else
+				tp->tf = tp->tf->left;
+		}
+		if (ft_strcmp(tp->tf->fname, name) < 0)
+		{
+			if (tp->tf->right == NULL)
+			{
+				tp->tf->right = filltf(tp->tf, name, fl, tp);
+				break ;
+			}
+			else
+				tp->tf = tp->tf->right;
+		}
+	}
+}
+
+void	ft_filest(t_trpointers *tp, char *name, t_signs *fl)
+{
+	//t_ree_files	*tf_root;
+
+	if (!fl->tfr)
+	{
+		tp->lenc = zerostruct(tp->lenc);
+		fl->tfr = 1;
+		tp->tfroot = filltf(tp->tfroot, name, fl, tp);
+		tp->tf = tp->tfroot;
+		return ;
+	}
+	tp->tf = tp->tfroot;
+	while (1)
+	{
+		if (ft_strcmp(tp->tf->fname, name) >= 0)
+		{
+			if (tp->tf->left == NULL)
+			{
+				tp->tf->left = filltf(tp->tf, name, fl, tp);
+				break ;
+			}
+			else
+				tp->tf = tp->tf->left;
+		}
+		if (ft_strcmp(tp->tf->fname, name) < 0)
+		{
+			if (tp->tf->right == NULL)
+			{
+				tp->tf->right = filltf(tp->tf, name, fl, tp);
+				break ;
+			}
+			else
+				tp->tf = tp->tf->right;
+		}
+	}
+}

@@ -129,6 +129,7 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 	struct dirent 	*dp;
 	t_ree_dir				*td_root;
 	t_ree_dir				*td;
+	struct stat				stbuf;
 
 	tp->lenc = zerostruct(tp->lenc);
 	if ((di = opendir(name)) == NULL)
@@ -177,7 +178,11 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 					td = td_root;
 					while (1)
 					{
-						if (ft_strcmp(td->dname, dp->d_name) < 0)
+						tp->tmp = ft_strjoinp(name, dp->d_name);
+						if (lstat(tp->tmp, &stbuf) != -1)
+							tp->tsec = stbuf.st_ctime;
+						free(tp->tmp);
+						if (td->sec >= tp->tsec)
 						{
 							if (td->left == NULL)
 							{
@@ -190,7 +195,7 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 							else
 								td = td->left;
 						}
-						if (ft_strcmp(td->dname, dp->d_name) >= 0)
+						if (td->sec < tp->tsec)
 						{
 							if (td->right == NULL)
 							{
