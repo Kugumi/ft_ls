@@ -28,9 +28,9 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 		tr_trees->fofreetd = tr_trees;
 		tr_trees->fft = 1;
 		if (fl->rec && fl->fir)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		else if (fl->ac > 2)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		fl->fir = 1;
 		treeprint(tr_trees, fl, tp);
 		write(1, "\n", 1);
@@ -110,11 +110,11 @@ t_ree_dir	*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 		}
 	}
 	if (fl->rec && fl->fir)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	else if (fl->ac > 2)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	if (fl->tds)
-		printf("total %lld\n", totaltotal(name, tp, fl));
+		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
 	if (fl->tds)
 		treeprint(tr_trees, fl, tp);
@@ -139,9 +139,9 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 		tr_trees->fofreetd = tr_trees;
 		tr_trees->fft = 1;
 		if (fl->rec && fl->fir)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		else if (fl->ac > 2)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		fl->fir = 1;
 		treeprint(tr_trees, fl, tp);
 		write(1, "\n", 1);
@@ -221,11 +221,11 @@ t_ree_dir	*ft_dirrt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *
 		}
 	}
 	if (fl->rec && fl->fir)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	else if (fl->ac > 2)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	if (fl->tds)
-		printf("total %lld\n", totaltotal(name, tp, fl));
+		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
 	fl->tds = 0;
 	treeprint(tr_trees, fl, tp);

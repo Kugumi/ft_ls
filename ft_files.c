@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
 void 	freememfiles(t_ree_files *tf, t_signs *fl)
 {
@@ -24,6 +23,18 @@ void 	freememfiles(t_ree_files *tf, t_signs *fl)
 		free(tf->fname);
 		tf->fname = NULL;
 	}
+	if (fl->l || fl->t)
+	{
+		free(tf->time);
+		if (fl->l)
+		{
+			free(tf->uid);
+			free(tf->gid);
+			free(tf->rwx);
+			if (tf->buff)
+				free(tf->buff);
+		}
+	}
 	free(tf);
 }
 
@@ -33,30 +44,30 @@ void	filesprint(t_ree_files *tf, t_signs *fl, t_trpointers *tp)
 	{
 		filesprint(tf->left, fl, tp);
 		if (!fl->l)
-			printf("%s\n", tf->fname);
+			ft_printf("%s\n", tf->fname);
 		else if (fl->l)
 		{
-			printf("%s  ", tf->rwx);
-			printf("%*d ",tp->lenc.c2, tf->nl);
-			printf("%-*s  ", (int)tp->lenc.c3, tf->uid);
-			printf("%-*s  ", (int)tp->lenc.c4, tf->gid);
+			ft_printf("%s  ", tf->rwx);
+			ft_printf("%*d ",tp->lenc.c2, tf->nl);
+			ft_printf("%-*s  ", (int)tp->lenc.c3, tf->uid);
+			ft_printf("%-*s  ", (int)tp->lenc.c4, tf->gid);
 			if (tf->rwx[0] == 'c' || tf->rwx[0] == 'b')
 			{
-				printf(" %*d, ", tp->lenc.cmajor, tf->major);
-				printf("%*d ", tp->lenc.cminor, tf->minor);
+				ft_printf(" %*d, ", tp->lenc.cmajor, tf->major);
+				ft_printf("%*d ", tp->lenc.cminor, tf->minor);
 			}
 			else
 			{
 				if ((tp->lenc.cmajor > 0 || tp->lenc.cminor > 0) && (tp->lenc.cmajor + tp->lenc.cminor + 2) > tp->lenc.c5)
-					printf(" %*lld", (tp->lenc.cmajor + tp->lenc.cminor + 2), tf->size);
+					ft_printf(" %*lld", (tp->lenc.cmajor + tp->lenc.cminor + 2), tf->size);
 				else
-					printf("%*lld ", (int)tp->lenc.c5, tf->size);
+					ft_printf("%*lld ", (int)tp->lenc.c5, tf->size);
 			}
-			printf("%s ", tf->time);
+			ft_printf("%s ", tf->time);
 			if(tf->rwx[0] == 'l')
-				printf("%s -> %s\n", tf->fname, tf->buff);
+				ft_printf("%s -> %s\n", tf->fname, tf->buff);
 			else
-				printf("%s\n", tf->fname);
+				ft_printf("%s\n", tf->fname);
 		}
 		filesprint(tf->right, fl, tp);
 	}
@@ -140,7 +151,7 @@ void	ft_files(t_trpointers *tp, char *name, t_signs *fl)
 
 void	ft_filesrt(t_trpointers *tp, char *name, t_signs *fl)
 {
-	//t_ree_files	*tf_root;
+	struct stat				stbuf;
 
 	if (!fl->tfr)
 	{
@@ -153,7 +164,9 @@ void	ft_filesrt(t_trpointers *tp, char *name, t_signs *fl)
 	tp->tf = tp->tfroot;
 	while (1)
 	{
-		if (ft_strcmp(tp->tf->fname, name) >= 0)
+		if (lstat(name, &stbuf) != -1)
+			tp->tsec = stbuf.st_ctime;
+		if (tp->tf->sec >= tp->tsec)
 		{
 			if (tp->tf->left == NULL)
 			{
@@ -163,7 +176,7 @@ void	ft_filesrt(t_trpointers *tp, char *name, t_signs *fl)
 			else
 				tp->tf = tp->tf->left;
 		}
-		if (ft_strcmp(tp->tf->fname, name) < 0)
+		if (tp->tf->sec < tp->tsec)
 		{
 			if (tp->tf->right == NULL)
 			{
@@ -178,7 +191,7 @@ void	ft_filesrt(t_trpointers *tp, char *name, t_signs *fl)
 
 void	ft_filest(t_trpointers *tp, char *name, t_signs *fl)
 {
-	//t_ree_files	*tf_root;
+	struct stat stbuf;
 
 	if (!fl->tfr)
 	{
@@ -191,7 +204,9 @@ void	ft_filest(t_trpointers *tp, char *name, t_signs *fl)
 	tp->tf = tp->tfroot;
 	while (1)
 	{
-		if (ft_strcmp(tp->tf->fname, name) >= 0)
+		if (lstat(name, &stbuf) != -1)
+			tp->tsec = stbuf.st_ctime;
+		if (tp->tf->sec < tp->tsec)
 		{
 			if (tp->tf->left == NULL)
 			{
@@ -201,7 +216,7 @@ void	ft_filest(t_trpointers *tp, char *name, t_signs *fl)
 			else
 				tp->tf = tp->tf->left;
 		}
-		if (ft_strcmp(tp->tf->fname, name) < 0)
+		if (tp->tf->sec >= tp->tsec)
 		{
 			if (tp->tf->right == NULL)
 			{

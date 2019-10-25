@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
-void	treeprintr(t_ree_dir *td, t_signs *fl)
+/*void	treeprintr(t_ree_dir *td, t_signs *fl)
 {
 	if (td != NULL)
 	{
@@ -26,7 +25,7 @@ void	treeprintr(t_ree_dir *td, t_signs *fl)
 			printf("%s\n", td->dname);
 		treeprintr(td->left, fl);
 	}
-}
+}*/
 
 /*void	findtreer(t_ree_trdirs *tua, t_signs *fl, int argc)
 {

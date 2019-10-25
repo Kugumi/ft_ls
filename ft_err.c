@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
 void 	freememerr(t_ree_errors	*te, t_signs *fl)
 {
@@ -37,7 +36,7 @@ void	errprint(t_ree_errors *te)
     if (te != NULL)
     {
         errprint (te->left);
-        printf("ls: %s: %s\n", te->name, te->s);
+        ft_printf("ls: %s: %s\n", te->name, te->s);
         errprint(te->right);
     }
 }

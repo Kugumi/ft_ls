@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
 int	ft_signs(t_signs *fl, t_trpointers	*tp, char *s)
 {
@@ -40,7 +39,7 @@ int	ft_signs(t_signs *fl, t_trpointers	*tp, char *s)
 			fl->abig = 1;
 		else
 		{
-			printf("ls: illegal option -- %c\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", s[i]);
+			ft_printf("ls: illegal option -- %c\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", s[i]);
 				exit(-1);
 		}
 		i++;
@@ -62,9 +61,9 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp
 		tr_trees->fofreetd = tr_trees;
 		tr_trees->fft = 1;
 		if (fl->rec && fl->fir)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		else if (fl->ac > 2)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		fl->fir = 1;
 		treeprint(tr_trees, fl, tp);
 		write(1, "\n", 1);
@@ -140,11 +139,11 @@ t_ree_dir	*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp
 		}
 	}
 	if (fl->rec && fl->fir)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	else if (fl->ac > 2)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	if (fl->tds)
-		printf("total %lld\n", totaltotal(name, tp, fl));
+		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
 	if (fl->tds)
 		treeprint(tr_trees, fl, tp);
@@ -183,10 +182,24 @@ void	ft_ls(char *name, t_signs *fl, t_trpointers *tp)
         return ;
     }
     else
-    	if (!fl->r)
-        	ft_files(tp, name, fl);
-    	else
-			ft_filesr(tp, name, fl);
+	{
+		if (fl->r)
+		{
+			if (fl->t)
+				ft_filesrt(tp, name, fl);
+			else
+				ft_filesr(tp, name, fl);
+		}
+		else if (fl->t)
+		{
+			if (fl->r)
+				ft_filesrt(tp, name, fl);
+			else
+				ft_filest(tp, name, fl);
+		}
+		else
+			ft_files(tp, name, fl);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -195,9 +208,7 @@ int	main(int argc, char **argv)
 	int 	ac;
 	t_signs	fl;
 	t_trpointers	tp;
-//	t_ree_errors	te;
 	t_ree_dir		*t;
-	t_ree_dir		*temp;
 
 	i = 1;
 	ft_fillfl(&fl, &tp);

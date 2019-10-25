@@ -69,7 +69,7 @@ typedef	struct	s_f
 	int				major;
 	int				minor;
 	long long		size;
-	long long			sec;
+	long long		sec;
 	char			*fname;
 	char			*time;
 	char 			*rwx;
@@ -175,7 +175,9 @@ char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
 void            ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl);
 void			ft_files(t_trpointers *tp, char *name, t_signs *fl);
+void			ft_filesrt(t_trpointers *tp, char *name, t_signs *fl);
 void			ft_filesr(t_trpointers *tp, char *name, t_signs *fl);
+void			ft_filest(t_trpointers *tp, char *name, t_signs *fl);
 void            errprint(t_ree_errors *te);
 void			filesprint(t_ree_files *tf, t_signs *fl, t_trpointers *tp);
 t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name, t_signs *fl);

@@ -141,6 +141,7 @@ t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, t_trpointers *tp)
 				tf->major = major(stbuf.st_rdev);
 				tf->minor = minor(stbuf.st_rdev);
 				tf->size = stbuf.st_size;
+				tf->buff = NULL;
 				if (tf->rwx[0] == 'l')
 				{
 					tf->buff = ft_strnew(1025);

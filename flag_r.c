@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
+
 t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp)
 {
 	DIR 			*di;
@@ -27,9 +27,9 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 		tr_trees->fofreetd = tr_trees;
 		tr_trees->fft = 1;
 		if (fl->rec && fl->fir)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		else if (fl->ac > 2)
-			printf("%s:\n", name);
+			ft_printf("%s:\n", name);
 		fl->fir = 1;
 		treeprint(tr_trees, fl, tp);
 		write(1, "\n", 1);
@@ -105,11 +105,11 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *t
 		}
 	}
 	if (fl->rec && fl->fir)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	else if (fl->ac > 2)
-		printf("%s:\n", name);
+		ft_printf("%s:\n", name);
 	if (fl->tds)
-		printf("total %lld\n", totaltotal(name, tp, fl));
+		ft_printf("total %lld\n", totaltotal(name, tp, fl));
 	fl->fir = 1;
 	fl->tds = 0;
 	treeprint(tr_trees, fl, tp);
