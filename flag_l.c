@@ -52,6 +52,7 @@ t_lc	total(char *name, t_lc len, t_trpointers *tp)
 {
 	struct stat		stbuf;
 
+	tp->lenc = len;
 	if (lstat(name, &stbuf) != -1)
 	{
 		if (len.c2 < ft_lennbr((int) stbuf.st_nlink))

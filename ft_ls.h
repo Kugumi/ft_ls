@@ -130,14 +130,33 @@ typedef	struct	s_uv
     t_dirs			*firstforfree;
 	long long		tsec;
 	char			*tmp;
+	DIR				*di;
+	struct dirent	*dp;
+	struct stat		stbuf;
 }				t_trpointers;
 
 void			treeprint(t_ree_dir *td, t_signs *fl, t_trpointers *tp);
 t_dirs			*ft_lstsort(t_dirs *dirs);
 t_dirs			*ft_lstsortr(t_dirs *dirs);
 t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp);
+void			tplf(t_ree_files *tf, struct stat stbuf);
+void			tpdirs(char *name, t_trpointers *tp);
+void			ft_usage(char i);
+int				ft_ls1(char *name, t_signs *fl, t_trpointers *tp);
 t_ree_dir		*ft_treedirs(char *name, t_signs *fl, t_trpointers *tp);
 void			ft_fillfl(t_signs *fl, t_trpointers	*tp);
+int				ft_dircycle(t_ree_dir *td, char *dpname, char *name, \
+		t_trpointers *tp);
+int				ft_dircycler(t_ree_dir *td, char *dpname, char *name, \
+		t_trpointers *tp);
+int				ft_dircyclet(t_ree_dir *td, char *name, t_trpointers *tp);
+int				ft_dircycletr(t_ree_dir *td, char *name, t_trpointers *tp);
+t_ree_dir		*ft_notds(char *name, t_signs *fl, t_ree_dir *tr_trees, \
+		t_trpointers *tp);
+void			ft_dirtdsa(t_ree_dir *tr_trees, t_signs *fl);
+t_ree_dir		*ft_diremp(t_ree_dir *tr_trees);
+void			dirsprint(t_signs *fl, char *name, t_trpointers *tp, \
+		t_ree_dir *tr_trees);
 t_ree_dir		*ft_dir(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
 t_ree_dir		*ft_dirt(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
 t_ree_dir		*ft_dirr(char *name, t_signs *fl, t_ree_dir	*tr_trees, t_trpointers *tp);
@@ -148,13 +167,14 @@ void			ft_r(t_ree_dir *t, t_signs *fl, t_trpointers *tp);
 char			*ft_strjoinp(char *s1, char const *s2);
 t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s);
 void            ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl);
+int				ft_notfr(t_trpointers *tp, char *name, t_signs *fl);
 void			ft_files(t_trpointers *tp, char *name, t_signs *fl);
 void			ft_filesrt(t_trpointers *tp, char *name, t_signs *fl);
 void			ft_filesr(t_trpointers *tp, char *name, t_signs *fl);
 void			ft_filest(t_trpointers *tp, char *name, t_signs *fl);
 void            errprint(t_ree_errors *te);
 void			filesprint(t_ree_files *tf, t_signs *fl, t_trpointers *tp);
-t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name, t_signs *fl);
+t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name);
 char			*ft_name(char *name);
 t_ree_dir		*fillemp(t_ree_dir *td);
 t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, t_trpointers *tp);

@@ -12,7 +12,35 @@
 
 #include "ft_ls.h"
 
-t_ree_dir	*fillemp(t_ree_dir *td)
+void			tpl(t_ree_dir *td, char *name, t_trpointers *tp, \
+		struct stat stbuf)
+{
+	td->gg = 1;
+	tp->lenc = total(name, tp->lenc, tp);
+	td->time = ctime(&stbuf.st_ctime);
+	td->sec = stbuf.st_ctime;
+	chtime(td->time);
+	td->time = ft_strdup(td->time);
+	if (tp->l)
+	{
+		td->rwx = drwx(stbuf.st_mode);
+		td->nl = stbuf.st_nlink;
+		td->uid = ft_strdup(getpwuid(stbuf.st_uid)->pw_name);
+		td->gid = ft_strdup(getgrgid(stbuf.st_gid)->gr_name);
+		td->major = major(stbuf.st_rdev);
+		td->minor = minor(stbuf.st_rdev);
+		td->size = stbuf.st_size;
+		td->buff = NULL;
+		if (td->rwx[0] == 'l')
+		{
+			td->buff = ft_strnew(1025);
+			readlink(name, td->buff, 1024);
+			td->buff[ft_strlen(td->buff)] = '\0';
+		}
+	}
+}
+
+t_ree_dir		*fillemp(t_ree_dir *td)
 {
 	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
 	td->path = NULL;
@@ -24,7 +52,7 @@ t_ree_dir	*fillemp(t_ree_dir *td)
 	return (td);
 }
 
-t_ree_dir	*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp)
+t_ree_dir		*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp)
 {
 	struct stat		stbuf;
 
@@ -36,31 +64,7 @@ t_ree_dir	*filltd(t_ree_dir *td, char *name, char *p, t_trpointers *tp)
 	{
 		name = ft_strjoinp(td->path, td->dname);
 		if (lstat(name, &stbuf) != -1)
-		{
-			td->gg = 1;
-			tp->lenc = total(name, tp->lenc, tp);
-			td->time = ctime(&stbuf.st_ctime);
-			td->sec = stbuf.st_ctime;
-			chtime(td->time);
-			td->time = ft_strdup(td->time);
-			if (tp->l)
-			{
-				td->rwx = drwx(stbuf.st_mode);
-				td->nl = stbuf.st_nlink;
-				td->uid = ft_strdup(getpwuid(stbuf.st_uid)->pw_name);
-				td->gid = ft_strdup(getgrgid(stbuf.st_gid)->gr_name);
-				td->major = major(stbuf.st_rdev);
-				td->minor = minor(stbuf.st_rdev);
-				td->size = stbuf.st_size;
-				td->buff = NULL;
-				if (td->rwx[0] == 'l')
-				{
-					td->buff = ft_strnew(1025);
-					readlink(name, td->buff, 1024);
-					td->buff[ft_strlen(td->buff)] = '\0';
-				}
-			}
-		}
+			tpl(td, name, tp, stbuf);
 		else
 			td->gg = 0;
 	}
@@ -83,7 +87,8 @@ t_ree_errors	*fillte(t_ree_errors *te, char *name, char *s)
 	return (te);
 }
 
-t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, t_trpointers *tp)
+t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, \
+		t_trpointers *tp)
 {
 	struct stat stbuf;
 
@@ -99,22 +104,7 @@ t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, t_trpointers *tp)
 			chtime(tf->time);
 			tf->time = ft_strdup(tf->time);
 			if (fl->l)
-			{
-				tf->rwx = drwx(stbuf.st_mode);
-				tf->nl = stbuf.st_nlink;
-				tf->uid = ft_strdup(getpwuid(stbuf.st_uid)->pw_name);
-				tf->gid = ft_strdup(getgrgid(stbuf.st_gid)->gr_name);
-				tf->major = major(stbuf.st_rdev);
-				tf->minor = minor(stbuf.st_rdev);
-				tf->size = stbuf.st_size;
-				tf->buff = NULL;
-				if (tf->rwx[0] == 'l')
-				{
-					tf->buff = ft_strnew(1025);
-					readlink(tf->fname, tf->buff, 1024);
-					tf->buff[ft_strlen(tf->buff)] = '\0';
-				}
-			}
+				tplf(tf, stbuf);
 		}
 	}
 	tf->right = NULL;

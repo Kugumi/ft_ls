@@ -16,7 +16,7 @@ t_ree_dir	*ft_direrr(char *name, t_signs *fl, t_ree_dir *tr_trees,\
 		t_trpointers *tp)
 {
 	fl->terd = 1;
-	tr_trees = ft_errd(tr_trees, strerror(errno), name, fl);
+	tr_trees = ft_errd(tr_trees, strerror(errno), name);
 	tr_trees->fofreetd = tr_trees;
 	tr_trees->fft = 1;
 	if (fl->rec && fl->fir)
@@ -31,94 +31,29 @@ t_ree_dir	*ft_direrr(char *name, t_signs *fl, t_ree_dir *tr_trees,\
 t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir *tr_trees,\
 		t_trpointers *tp)
 {
-	DIR				*di;
-	struct dirent	*dp;
-	t_ree_dir		*td_root;
-	t_ree_dir		*td;
-
 	tp->lenc = zerostruct(tp->lenc);
-	if ((di = opendir(name)) == NULL)
+	if ((tp->di = opendir(name)) == NULL)
 		return (ft_direrr(name, fl, tr_trees, tp));
-	if ((dp = readdir(di)) != NULL)
+	if ((tp->dp = readdir(tp->di)) != NULL)
 	{
 		if (!fl->tds && fl->a)
+			tr_trees = ft_notds(name, fl, tr_trees, tp);
+		while ((tp->dp = readdir(tp->di)) != NULL)
 		{
-			fl->tds = 1;
-			tr_trees = filltd(tr_trees, dp->d_name, name, tp);
-			td = tr_trees;
-			td_root = td;
-			tr_trees->fofreetd = tr_trees;
-			tr_trees->fft = 1;
-		}
-		while ((dp = readdir(di)) != NULL)
-		{
-			if ((dp->d_name[0] == '.' && !(fl->a) && !(fl->abig)) ||
-					(dp->d_name[0] == '.' && dp->d_name[1] == '.' && fl->abig))
+			if ((tp->dp->d_name[0] == '.' && !(fl->a) && !(fl->abig)) ||
+			(tp->dp->d_name[0] == '.' && tp->dp->d_name[1] == '.' && fl->abig))
 				;
 			else
 			{
 				if (!fl->tds)
-				{
-					fl->tds = 1;
-					tr_trees = filltd(tr_trees, dp->d_name, name, tp);
-					td = tr_trees;
-					td_root = td;
-					tr_trees->fofreetd = tr_trees;
-					tr_trees->fft = 1;
-				}
+					tr_trees = ft_notds(name, fl, tr_trees, tp);
 				else
-				{
-					td = td_root;
-					while (1)
-					{
-						if (ft_strcmp(td->dname, dp->d_name) < 0)
-						{
-							if (td->left == NULL)
-							{
-								td->left = filltd(td, dp->d_name, name, tp);
-								break ;
-							}
-							else
-								td = td->left;
-						}
-						if (ft_strcmp(td->dname, dp->d_name) >= 0)
-						{
-							if (td->right == NULL)
-							{
-								td->right = filltd(td, dp->d_name, name, tp);
-								break ;
-							}
-							else
-								td = td->right;
-						}
-					}
-				}
+					ft_dircycler(tr_trees, tp->dp->d_name, name, tp);
 			}
 		}
-		closedir(di);
-		if (fl->tds == 0)
-		{
-			tr_trees = fillemp(tr_trees);
-			tr_trees->fofreetd = tr_trees;
-			tr_trees->fft = 1;
-		}
+		closedir(tp->di);
+		(fl->tds == 0) ? tr_trees = ft_diremp(tr_trees) : 0;
 	}
-	if (fl->rec && fl->fir)
-		ft_printf("\n%s:\n", name);
-	else if (fl->ac > 2)
-	{
-		if(tp->i >= 1 && !tp->ifile)
-		{
-			ft_printf("%s:\n", name);
-			tp->i = 0;
-		}
-		else
-			ft_printf("\n%s:\n", name);
-	}
-	if (fl->tds && fl->l)
-		ft_printf("total %lld\n", totaltotal(name, tp, fl));
-	fl->fir = 1;
-	fl->tds = 0;
-	treeprint(tr_trees, fl, tp);
+	dirsprint(fl, name, tp, tr_trees);
 	return (tr_trees);
 }

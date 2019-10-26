@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void 	freememerr(t_ree_errors	*te, t_signs *fl)
+void			freememerr(t_ree_errors *te, t_signs *fl)
 {
 	if (te == NULL)
 		return ;
@@ -31,26 +31,28 @@ void 	freememerr(t_ree_errors	*te, t_signs *fl)
 	free(te);
 }
 
-void	errprint(t_ree_errors *te)
+void			errprint(t_ree_errors *te)
 {
-    if (te != NULL)
-    {
-        errprint (te->left);
-        ft_printf("ls: %s: %s\n", te->name, te->s);
-        errprint(te->right);
-    }
+	if (te != NULL)
+	{
+		errprint(te->left);
+		ft_printf("ls: %s: %s\n", te->name, te->s);
+		errprint(te->right);
+	}
 }
 
-void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
+int				ft_noter(t_signs *fl, char *name, char *s, t_trpointers *tp)
 {
-	if (!fl->ter)
-	{
-		fl->ter = 1;
-		tp->teroot = fillte(tp->teroot, name, s);
-		tp->te = tp->teroot;
-		return ;
-	}
+	fl->ter = 1;
+	tp->teroot = fillte(tp->teroot, name, s);
 	tp->te = tp->teroot;
+	return (1);
+}
+
+void			ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
+{
+	if (!fl->ter && ft_noter(fl, name, s, tp))
+		return ;
 	while (1)
 	{
 		if (ft_strcmp(tp->te->name, name) >= 0)
@@ -58,7 +60,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 			if (tp->te->left == NULL)
 			{
 				tp->te->left = fillte(tp->te, name, s);
-					break ;
+				break ;
 			}
 			else
 				tp->te = tp->te->left;
@@ -68,7 +70,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 			if (tp->te->right == NULL)
 			{
 				tp->te->right = fillte(tp->te, name, s);
-					break ;
+				break ;
 			}
 			else
 				tp->te = tp->te->right;
@@ -76,7 +78,7 @@ void	ft_err(t_trpointers *tp, char *name, char *s, t_signs *fl)
 	}
 }
 
-t_ree_dir *ft_errd(t_ree_dir *td, char *s, char *name, t_signs *fl)
+t_ree_dir		*ft_errd(t_ree_dir *td, char *s, char *name)
 {
 	td = (t_ree_dir *)malloc(sizeof(t_ree_dir));
 	td->path = ft_strdup(name);

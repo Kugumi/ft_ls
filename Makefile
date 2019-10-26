@@ -6,13 +6,14 @@
 #    By: kdeloise <kdeloise@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/23 15:57:22 by kdeloise          #+#    #+#              #
-#    Updated: 2019/10/26 01:10:00 by kdeloise         ###   ########.fr        #
+#    Updated: 2019/10/26 02:04:05 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_NAME =	flag_l.c flag_r.c ft_err.c ft_files.c \
 		ft_fillfl.c ft_fillstr.c ft_lenlst.c ft_listsort.c ft_ls.c ft_name.c \
-		ft_r.c ft_strjoinp.c ft_time.c ft_tout.c ft_toutr.c ft_trfree.c ft_tu.c
+		ft_r.c ft_strjoinp.c ft_time.c ft_tout.c ft_trfree.c \
+		ft_tu.c ft_dir.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

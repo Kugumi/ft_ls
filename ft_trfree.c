@@ -70,3 +70,29 @@ void 	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 		else
 			free(td);
 }
+
+void 	freememfiles(t_ree_files *tf, t_signs *fl)
+{
+	if (tf == NULL)
+		return ;
+	freememfiles(tf->left, fl);
+	freememfiles(tf->right, fl);
+	if (tf->fname)
+	{
+		free(tf->fname);
+		tf->fname = NULL;
+	}
+	if (fl->l || fl->t)
+	{
+		free(tf->time);
+		if (fl->l)
+		{
+			free(tf->uid);
+			free(tf->gid);
+			free(tf->rwx);
+			if (tf->buff)
+				free(tf->buff);
+		}
+	}
+	free(tf);
+}

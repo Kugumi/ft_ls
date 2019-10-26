@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_listsort.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jijerde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/26 08:46:23 by jijerde           #+#    #+#             */
+/*   Updated: 2019/10/26 08:46:25 by jijerde          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-t_dirs *ft_lstsortr(t_dirs *dirs)
+t_dirs	*ft_lstsortr(t_dirs *dirs)
 {
-	int l;
-	int i;
-	int ii;
-	t_dirs *forsort2;
-	t_dirs *nul;
+	int		l;
+	int		i;
+	int		ii;
+	t_dirs	*forsort2;
+	t_dirs	*nul;
 
 	nul = dirs;
 	i = 0;
@@ -27,29 +39,29 @@ t_dirs *ft_lstsortr(t_dirs *dirs)
 	return (dirs);
 }
 
-t_dirs *ft_lstsort(t_dirs *dirs)
+t_dirs	*ft_lstsort(t_dirs *dirs)
 {
-    int l;
-    int i;
-    int ii;
-    t_dirs *forsort2;
-    t_dirs *nul;
+	int		l;
+	int		i;
+	int		ii;
+	t_dirs	*forsort2;
+	t_dirs	*nul;
 
-    nul = dirs;
-    i = 0;
-    l = ft_lenlst(nul);
-    while (i++ < l && !(ii = 0))
-    {
-        dirs = nul;
-        while (ii++ < (l - 1))
-        {
-            forsort2 = dirs->next;
-            if (ft_strcmp(forsort2->name, dirs->name) < 0)
-            {
-                ft_swap(&(forsort2->name), &(dirs->name));
-            }
-            dirs = dirs->next;
-        }
-    }
-    return (dirs);
+	nul = dirs;
+	i = 0;
+	l = ft_lenlst(nul);
+	while (i++ < l && !(ii = 0))
+	{
+		dirs = nul;
+		while (ii++ < (l - 1))
+		{
+			forsort2 = dirs->next;
+			if (ft_strcmp(forsort2->name, dirs->name) < 0)
+			{
+				ft_swap(&(forsort2->name), &(dirs->name));
+			}
+			dirs = dirs->next;
+		}
+	}
+	return (dirs);
 }

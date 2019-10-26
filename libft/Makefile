@@ -32,7 +32,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	ft_flags.c ft_flagsproc.c ft_procspec.c ft_xoxspec.c ft_uspec.c \
 	ft_color.c ft_rspec.c dtoa.c ft_fspec.c ft_fflag.c ft_flag2.c ft_flags2.c \
 	ft_fflag2.c ft_flag3.c ft_procspec2.c ft_rspec2.c ft_lennbrdiuxox.c \
-	ft_flags3.c ft_pricont.c ft_pricont2.c ft_dispec.c ft_lastlenfl.c ft_lnh.c
+	ft_flags3.c ft_pricont.c ft_pricont2.c ft_dispec.c ft_lastlenfl.c ft_lnh.c \
+	ft_strrev.c ft_swap.c
 OBJ = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
 	ft_memchr.o ft_memcmp.o ft_strlen.o ft_strdup.o ft_strcpy.o \
 	ft_strncpy.o ft_strcat.o ft_strncat.o ft_strlcat.o ft_strchr.o \
@@ -49,7 +50,8 @@ OBJ = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
 	ft_flags.o ft_flagsproc.o ft_procspec.o ft_xoxspec.o ft_uspec.o \
 	ft_color.o ft_rspec.o dtoa.o ft_fspec.o ft_fflag.o ft_flag2.o ft_flags2.o \
 	ft_fflag2.o ft_flag3.o ft_procspec2.o ft_rspec2.o ft_lennbrdiuxox.o \
-	ft_flags3.o ft_pricont.o ft_pricont2.o ft_dispec.o ft_lastlenfl.o ft_lnh.o
+	ft_flags3.o ft_pricont.o ft_pricont2.o ft_dispec.o ft_lastlenfl.o ft_lnh.o \
+	ft_strrev.o ft_swap.o
 
 all: $(NAME)
 
