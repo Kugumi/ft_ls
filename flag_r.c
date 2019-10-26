@@ -48,7 +48,7 @@ t_ree_dir	*ft_dirr(char *name, t_signs *fl, t_ree_dir *tr_trees,\
 				if (!fl->tds)
 					tr_trees = ft_notds(name, fl, tr_trees, tp);
 				else
-					ft_dircycler(tr_trees, tp->dp->d_name, name, tp);
+					ft_dircycler(tr_trees, name, tp);
 			}
 		}
 		closedir(tp->di);

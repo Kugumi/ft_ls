@@ -20,30 +20,7 @@ void	filesprint(t_ree_files *tf, t_signs *fl, t_trpointers *tp)
 		if (!fl->l)
 			ft_printf("%s\n", tf->fname);
 		else if (fl->l)
-		{
-			ft_printf("%s  ", tf->rwx);
-			ft_printf("%*d ", tp->lenc.c2, tf->nl);
-			ft_printf("%-*s  ", (int)tp->lenc.c3, tf->uid);
-			ft_printf("%-*s  ", (int)tp->lenc.c4, tf->gid);
-			if (tf->rwx[0] == 'c' || tf->rwx[0] == 'b')
-			{
-				ft_printf(" %*d, ", tp->lenc.cmajor, tf->major);
-				ft_printf("%*d ", tp->lenc.cminor, tf->minor);
-			}
-			else
-			{
-				if ((tp->lenc.cmajor > 0 || tp->lenc.cminor > 0) &&
-				(tp->lenc.cmajor + tp->lenc.cminor + 2) > tp->lenc.c5)
-					ft_printf(" %*lld", (tp->lenc.cmajor + tp->lenc.cminor + 2), tf->size);
-				else
-					ft_printf("%*lld ", (int)tp->lenc.c5, tf->size);
-			}
-			ft_printf("%s ", tf->time);
-			if (tf->rwx[0] == 'l')
-				ft_printf("%s -> %s\n", tf->fname, tf->buff);
-			else
-				ft_printf("%s\n", tf->fname);
-		}
+			ft_filelprint(tf, tp);
 		filesprint(tf->right, fl, tp);
 	}
 }

@@ -25,34 +25,8 @@ void	freedirs(t_dirs *dirs)
 	}
 }
 
-void 	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
+void	freel(t_ree_dir *td, t_signs *fl, int i, int j)
 {
-	int i;
-	int j;
-
-	j = 0;
-	i = 0;
-	if (td == NULL)
-		return ;
-	freememdir(td->left, fl, tp);
-	freememdir(td->right, fl, tp);
-	if (td->path)
-	{
-		i = 1;
-		free(td->path);
-		td->path = NULL;
-	}
-	if (td->dname)
-	{
-		free(td->dname);
-		td->dname = NULL;
-	}
-	if (td->s)
-	{
-		free(td->s);
-		td->s = NULL;
-		j = 1;
-	}
 	if ((fl->l || fl->t) && i && !j && td->gg)
 	{
 		free(td->time);
@@ -65,13 +39,42 @@ void 	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
 				free(td->buff);
 		}
 	}
-		if (td->fft)
-			free(td->fofreetd);
-		else
-			free(td);
+	if (td->fft)
+		free(td->fofreetd);
+	else
+		free(td);
 }
 
-void 	freememfiles(t_ree_files *tf, t_signs *fl)
+void	freememdir(t_ree_dir *td, t_signs *fl, t_trpointers *tp)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	if (td == NULL)
+		return ;
+	freememdir(td->left, fl, tp);
+	freememdir(td->right, fl, tp);
+	if (td->path && (i = 1))
+	{
+		free(td->path);
+		td->path = NULL;
+	}
+	if (td->dname)
+	{
+		free(td->dname);
+		td->dname = NULL;
+	}
+	if (td->s && (j = 1))
+	{
+		free(td->s);
+		td->s = NULL;
+	}
+	freel(td, fl, i, j);
+}
+
+void	freememfiles(t_ree_files *tf, t_signs *fl)
 {
 	if (tf == NULL)
 		return ;

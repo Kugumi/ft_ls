@@ -25,12 +25,13 @@ void	ft_fillfl(t_signs *fl, t_trpointers *tp)
 	fl->tfr = 0;
 	fl->terd = 0;
 	fl->fir = 0;
-	fl->reci = 0;
 	fl->ac = 0;
 	fl->abig = 0;
 	tp->t = 0;
 	tp->l = 0;
 	tp->gg = 0;
+	tp->i = 0;
+	tp->ifile = 0;
 }
 
 int		ft_notfr(t_trpointers *tp, char *name, t_signs *fl)
@@ -60,7 +61,7 @@ void	tplf(t_ree_files *tf, struct stat stbuf)
 	}
 }
 
-int 	ft_ls1(char *name, t_signs *fl, t_trpointers *tp)
+int		ft_ls1(char *name, t_signs *fl, t_trpointers *tp)
 {
 	struct stat stbuf;
 
@@ -81,6 +82,7 @@ int 	ft_ls1(char *name, t_signs *fl, t_trpointers *tp)
 
 void	ft_usage(char i)
 {
-	ft_printf("ls: illegal option -- %c\n"
-		   "usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", i);
+	ft_printf("ls: illegal option -- %c\n" \
+	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] " \
+	"[file ...]\n", i);
 }

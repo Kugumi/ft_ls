@@ -49,8 +49,7 @@ int			ft_dircycle(t_ree_dir *td, char *dpname, char *name, \
 	}
 }
 
-int			ft_dircycler(t_ree_dir *td, char *dpname, char *name, \
-		t_trpointers *tp)
+int			ft_dircycler(t_ree_dir *td, char *name, t_trpointers *tp)
 {
 	while (1)
 	{
@@ -59,7 +58,7 @@ int			ft_dircycler(t_ree_dir *td, char *dpname, char *name, \
 			if (td->left == NULL)
 			{
 				td->left = filltd(td, tp->dp->d_name, name, tp);
-				break ;
+				return (0);
 			}
 			else
 				td = td->left;
@@ -69,7 +68,7 @@ int			ft_dircycler(t_ree_dir *td, char *dpname, char *name, \
 			if (td->right == NULL)
 			{
 				td->right = filltd(td, tp->dp->d_name, name, tp);
-				break ;
+				return (0);
 			}
 			else
 				td = td->right;

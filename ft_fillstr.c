@@ -19,7 +19,8 @@ void			tpl(t_ree_dir *td, char *name, t_trpointers *tp, \
 	tp->lenc = total(name, tp->lenc, tp);
 	td->time = ctime(&stbuf.st_ctime);
 	td->sec = stbuf.st_ctime;
-	chtime(td->time);
+	tp->year = time(NULL) - td->sec;
+	chtime(td->time, tp->year);
 	td->time = ft_strdup(td->time);
 	if (tp->l)
 	{
@@ -91,6 +92,7 @@ t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, \
 		t_trpointers *tp)
 {
 	struct stat stbuf;
+	long long	year;
 
 	tf = (t_ree_files *)malloc(sizeof(t_ree_files));
 	tf->fname = ft_strdup(name);
@@ -101,7 +103,8 @@ t_ree_files		*filltf(t_ree_files *tf, char *name, t_signs *fl, \
 			tp->lenc = total(name, tp->lenc, tp);
 			tf->time = ctime(&stbuf.st_ctime);
 			tf->sec = stbuf.st_ctime;
-			chtime(tf->time);
+			year = time(NULL) - tf->sec;
+			chtime(tf->time, year);
 			tf->time = ft_strdup(tf->time);
 			if (fl->l)
 				tplf(tf, stbuf);

@@ -6,7 +6,7 @@
 /*   By: jijerde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 04:51:57 by jijerde           #+#    #+#             */
-/*   Updated: 2019/10/12 01:45:50 by jijerde          ###   ########.fr       */
+/*   Updated: 2019/10/26 12:27:09 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,67 +124,11 @@ int		main(int argc, char **argv)
 	t_trpointers	tp;
 	t_ree_dir		*t;
 
-	i = 1;
-	tp.i = 0;
-	tp.ifile = 0;
-	ft_fillfl(&fl, &tp);
-	while (argv[i] && argv[i][0] == '-' && argv[i][1])
-	{
-		if (ft_signs(&fl, &tp, argv[i]) == -1)
-			return (0);
-		i++;
-	}
-	fl.ac = argc - (i - 1);
-	if (argc - i == 0)
-	{
-		t = ft_treedirs(".", &fl, &tp);
-		if (fl.rec && fl.tdr)
-		{
-			ft_r(t, &fl, &tp);
-			freememdir(t, &fl, &tp);
-		}
-		else
-			freememdir(t, &fl, &tp);
-		return (0);
-	}
-	tp.dirs = NULL;
-    while (argv[i])
-    {
-        ft_ls(argv[i], &fl, &tp);
-        i++;
-    }
-    if (tp.dirs)
-	{
-    	if (!fl.r)
-    		ft_lstsort(tp.first);
-    	else
-			ft_lstsortr(tp.first);
-	}
-    if (fl.ter)
-    	errprint(tp.teroot);
-    if (fl.tfr)
-		filesprint(tp.tfroot, &fl, &tp);
-    if (tp.dirs)
-	{
-		while (tp.first)
-		{
-			t = ft_treedirs(tp.first->name, &fl, &tp);
-			if (fl.rec && fl.tdr)
-			{
-					ft_r(t, &fl, &tp);
-					freememdir(t, &fl, &tp);
-			}
-			else
-				freememdir(t, &fl, &tp);
-			tp.first = tp.first->next;
-			if (!tp.first)
-				break ;
-			fl.tdr = 0;
-			fl.tds = 0;
-			fl.fir = 0;
-			fl.reci = 0;
-		}
-	}
+	t = NULL;
+	i = ft_nachalo(&tp, &fl, argc, argv);
+	conti(&tp, &fl, argv, i);
+	if (tp.dirs)
+		end(&tp, t, &fl);
 	if (fl.tdr)
 		freedirs(tp.firstforfree);
 	if (fl.ter)

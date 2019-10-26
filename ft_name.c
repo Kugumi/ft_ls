@@ -12,11 +12,11 @@
 
 #include "ft_ls.h"
 
-char *ft_name(char *name)
+char	*ft_name(char *name)
 {
-	int i;
-	int	j;
-	char *n;
+	int		i;
+	int		j;
+	char	*n;
 
 	j = 0;
 	i = (int)ft_strlen(name) - 1;
