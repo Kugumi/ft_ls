@@ -11,8 +11,9 @@ $ cd ft_ls
 $ make
 ```
 
-### Usage
+### Syntax
 
 ```
-./ft_ls 
+./ft_ls [-l] [-R] [-a] [-r] [-t] [-A] arg
 ```
+
