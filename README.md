@@ -18,8 +18,8 @@ $ make
 ```
 
 ### Options
-|        |        |
-| ------ | ------ |
+|          |        |
+| ------   | ------ |
 | -l | Lists in long format, giving mode, number of links, owner, group, size in bytes, and time of last modification for each file (see above). If the file is a special file, the size field instead contains the major and minor device numbers. |
 | -R   | Recursively lists subdirectories encountered.           |
 | -a | Lists all entries, including those that begin with a dot (.), which are normally not listed. |
