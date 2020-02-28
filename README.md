@@ -20,9 +20,9 @@ $ make
 ### Options
 |        |        |
 | ------ | ------ |
-| -l | Lists in long format, giving mode, number of links, owner, group, size in bytes, and time of last modification for each file (see above). If the file is a special file, the size field instead contains the major and minor device numbers. If the time of last modification is greater than six months ago, it is shown in the format `month date year' for the POSIX locale |
-| -R | Returns true if file is "character-special." |
-| -a | Returns true if file is a directory. |
-| -r | Returns true if file exists. |
-| -t | Returns true if file exists, and is a regular file. |
-| -A | Returns true if file has the setgid bit set. |
+| -l | Lists in long format, giving mode, number of links, owner, group, size in bytes, and time of last modification for each file (see above). If the file is a special file, the size field instead contains the major and minor device numbers. |
+| -R | Recursively lists subdirectories encountered. |
+| -a | Lists all entries, including those that begin with a dot (.), which are normally not listed. |
+| -r | Reverses the order of sort to get reverse alphabetic, oldest first, or smallest file size first as appropriate. |
+| -t | Sorts by time stamp (latest first) instead of by name. The default is the last modification time. |
+| -A | Lists all entries, including those that begin with a dot (.), with the exception of the working directory (.) and the parent directory (..). |
