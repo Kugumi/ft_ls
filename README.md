@@ -33,7 +33,7 @@ $ make
 | -l | Returns true if file is "block-special". |
 | -R | Recursively lists subdirectories encountered. |
 | -a | Lists all entries, including those that begin with a dot (.), which are normally not listed. |
-| -r | Returns true if file exists. |
+| -r | Reverses the order of sort to get reverse alphabetic, oldest first, or smallest file size first as appropriate. |
 | -t | Returns true if file exists, and is a regular file. |
 | -A | Returns true if file has the setgid bit set. |
 
