@@ -21,6 +21,7 @@ $ make
 |          |        |
 | ------   | ------ |
 | -l | Lists in long format, giving mode, number of links, owner, group, size in bytes, and time of last modification for each file. |
+
 | -R | Recursively lists subdirectories encountered. |
 | -a | Lists all entries, including those that begin with a dot (.), which are normally not listed. |
 | -r | Reverses the order of sort to get reverse alphabetic, oldest first, or smallest file size first as appropriate. |
