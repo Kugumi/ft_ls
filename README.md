@@ -35,6 +35,6 @@ $ make
 | -a | Lists all entries, including those that begin with a dot (.), which are normally not listed. |
 | -r | Reverses the order of sort to get reverse alphabetic, oldest first, or smallest file size first as appropriate. |
 | -t | Sorts by time stamp (latest first) instead of by name. The default is the last modification time. |
-| -A | Returns true if file has the setgid bit set. |
+| -A | Lists all entries, including those that begin with a dot (.), with the exception of the working directory (.) and the parent directory (..). |
 
 
