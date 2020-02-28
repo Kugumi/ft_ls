@@ -31,7 +31,7 @@ $ make
 |        |        |
 | ------ | ------ |
 | -l | Returns true if file is "block-special". |
-| -R | Returns true if file is "character-special." |
+| -R | Recursively lists subdirectories encountered. |
 | -a | Returns true if file is a directory. |
 | -r | Returns true if file exists. |
 | -t | Returns true if file exists, and is a regular file. |
