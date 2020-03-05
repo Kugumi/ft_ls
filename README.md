@@ -1,6 +1,6 @@
 # ft_ls
 
-To Recode ls and some of its options allow to find out **how to interact with
+To recode ls and some of its options allow to find out **how to interact with
 the file system using C.**
 
 ### Installation
