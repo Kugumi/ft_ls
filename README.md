@@ -3,6 +3,14 @@
 To recode ls and some of its options allow to find out **how to interact with
 the file system using C.**
 
+Improving skills:
+
+> Imperative programming
+
+> Unix
+
+> Algorithms & AI
+
 ### Installation
 
 ```
